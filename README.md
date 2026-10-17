@@ -23,6 +23,8 @@ A retro personal website for **Alphie** (Alpha Brownian-Motion), a baby quant wh
   - *Black-Scholes Bottle*: milk level is a call option price; the Greeks are dials.
   - *Rattle of Large Numbers*: a Galton board that builds a bell curve (shake your phone).
   - *Lullaby Box*: a random walk turned into a music-box melody with the Web Audio API.
+  - *Order-Book Blocks*: a market-making game against Beta, with informed "sneaky babies" who punish spreads that are too tight.
+  - *Baby's First Trade*: paper trading with fake milk money; your score is your alpha over buy-and-hold Beta, and the piggy bank is saved between visits.
 - **Scroll story**: five scenes along a crawl path that draws itself as you scroll (GSAP ScrollTrigger).
 - **3D crib**: low-poly Alphie and Beta in three.js, lazy-loaded.
 - **Ask Alphie**: in-character chat with a live model and a scripted fallback.

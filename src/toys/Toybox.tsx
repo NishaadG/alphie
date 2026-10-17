@@ -1,7 +1,9 @@
 import { BottleBS } from "./BottleBS";
+import { FirstTrade } from "./FirstTrade";
 import { GaltonRattle } from "./GaltonRattle";
 import { LullabyBox } from "./LullabyBox";
 import { MonteCarloMobile } from "./MonteCarloMobile";
+import { OrderBookBlocks } from "./OrderBookBlocks";
 
 export function Toybox() {
   return (
@@ -15,6 +17,8 @@ export function Toybox() {
         <BottleBS />
         <GaltonRattle />
         <LullabyBox />
+        <OrderBookBlocks />
+        <FirstTrade />
       </div>
     </section>
   );
