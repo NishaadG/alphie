@@ -1,14 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
+import { AskAlphie } from "./components/AskAlphie";
 import { BootScreen } from "./components/BootScreen";
+import { ChaosLayer } from "./components/ChaosLayer";
 import { CharacterSheet } from "./components/CharacterSheet";
+import { Crib3D } from "./components/Crib3D";
 import { EggLayer } from "./components/EggLayer";
+import { Footer } from "./components/Footer";
+import { Guestbook } from "./components/Guestbook";
 import { Hero } from "./components/Hero";
 import { SparkleTrail } from "./components/SparkleTrail";
+import { Story } from "./components/Story";
 import { Taskbar } from "./components/Taskbar";
 import { Ticker } from "./components/Ticker";
 import { installClickSounds } from "./lib/clickSounds";
 import { recordVisit, type VisitMemory } from "./lib/memory";
 import { useApp } from "./lib/store";
+import { Toybox } from "./toys/Toybox";
 
 // Read once per page load (outside React so StrictMode can't count it twice).
 const memory: VisitMemory = recordVisit();
@@ -30,6 +37,7 @@ export default function App() {
 
   const onBooted = useCallback(() => setBooted(true), []);
   const onSwanDone = useCallback(() => setSwan(false), []);
+  const onSwan = useCallback(() => setSwan(true), []);
 
   return (
     <>
@@ -38,11 +46,20 @@ export default function App() {
         Skip to content
       </a>
       <Ticker />
+      <ChaosLayer />
       <main id="main" className="desktop">
         <div className="row row--hero">
-          <Hero memory={memory} onSwan={() => setSwan(true)} />
+          <Hero memory={memory} onSwan={onSwan} />
           <CharacterSheet />
         </div>
+        <Toybox />
+        <Story />
+        <div className="row row--two">
+          <AskAlphie />
+          <Crib3D />
+        </div>
+        <Guestbook />
+        <Footer />
       </main>
       <Taskbar />
       <SparkleTrail />

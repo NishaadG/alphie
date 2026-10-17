@@ -1,0 +1,95 @@
+.story__track {
+  position: relative;
+  padding: 20px 0 40px;
+}
+.story__path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.story__path-bg,
+.story__path-fg {
+  fill: none;
+  stroke-linecap: round;
+}
+.story__path-bg {
+  stroke: var(--bevel-lo);
+  stroke-width: 3;
+  stroke-dasharray: 2 10;
+  opacity: 0.6;
+}
+.story__path-fg {
+  stroke: var(--accent);
+  stroke-width: 6;
+}
+.story--static .story__path-fg {
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+}
+.story__baby {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  font-size: 34px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  filter: drop-shadow(2px 2px 0 var(--shadow));
+  pointer-events: none;
+}
+.story--static .story__baby {
+  display: none;
+}
+.story__scenes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 90px;
+  position: relative;
+  z-index: 1;
+}
+.scene {
+  width: min(520px, 100%);
+}
+.scene--right {
+  justify-self: end;
+}
+.scene__time {
+  font-size: 18px;
+  padding-right: 6px;
+}
+.scene__body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 12px;
+  align-items: center;
+}
+.scene__body p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+.scene__art {
+  display: flex;
+  gap: 8px;
+  font-size: clamp(40px, 9vw, 56px);
+  line-height: 1;
+}
+.scene__art span {
+  display: inline-block;
+}
+.scene__chart {
+  width: 90px;
+  color: var(--accent);
+}
+@media (max-width: 767px) {
+  .story__scenes {
+    gap: 60px;
+  }
+  .scene,
+  .scene--right {
+    justify-self: center;
+  }
+}

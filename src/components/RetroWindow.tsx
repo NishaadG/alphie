@@ -34,7 +34,8 @@ export function RetroWindow({ title, icon = "🍼", status, className = "", id, 
   }, [chaos]);
 
   const onPointerDown = (e: React.PointerEvent) => {
-    if (!chaos || (e.target as HTMLElement).closest("button")) return;
+    // Phones keep the stacked layout (CSS wobbles it instead), so no dragging there.
+    if (!chaos || window.innerWidth < 768 || (e.target as HTMLElement).closest("button")) return;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     drag.current = { px: e.clientX, py: e.clientY, ox: offset.x, oy: offset.y };
   };

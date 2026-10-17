@@ -1,0 +1,350 @@
+/* ---------- Chat ---------- */
+.chat {
+  display: grid;
+  gap: 10px;
+}
+.chat__log {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  background: var(--win);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.chat__msg {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  max-width: 88%;
+}
+.chat__msg p {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: var(--win-face);
+  font-size: 15px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.chat__msg--user {
+  align-self: flex-end;
+}
+.chat__msg--user p {
+  background: var(--accent);
+  color: var(--title-ink);
+}
+.chat__avatar {
+  font-size: 26px;
+  line-height: 1;
+}
+.chat__typing p {
+  animation: blink 1s steps(2) infinite;
+}
+.chat__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chat__chip {
+  font-size: 14px;
+  min-height: 30px;
+  padding: 2px 8px;
+  white-space: normal;
+  text-align: left;
+}
+.chat__form {
+  display: flex;
+  gap: 6px;
+}
+
+/* ---------- Guestbook ---------- */
+.gb-form {
+  display: grid;
+  gap: 10px;
+  font-size: 15px;
+}
+.gb-form__row {
+  display: grid;
+  gap: 10px;
+}
+@media (min-width: 560px) {
+  .gb-form__row {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+.gb-moods {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.gb-moods legend {
+  padding: 0;
+  margin-bottom: 2px;
+}
+.gb-mood {
+  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid transparent;
+}
+.gb-mood.is-on {
+  border-color: var(--accent);
+  background: var(--win-face);
+}
+.gb-mood:focus-within {
+  outline: 3px dashed var(--accent);
+}
+.gb-form__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.gb-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.gb-entry {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--win);
+}
+.gb-entry__mood {
+  font-size: 28px;
+}
+.gb-entry__head,
+.gb-entry__msg {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.gb-entry__head .pixel {
+  color: var(--ink-soft);
+}
+
+/* ---------- 3D crib ---------- */
+.crib3d {
+  position: relative;
+  height: 320px;
+  background: radial-gradient(circle at 50% 30%, var(--win), var(--win-face));
+}
+.crib3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: grab;
+}
+.crib3d__msg {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+  padding: 16px;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+  text-align: center;
+  padding: 20px 0 10px;
+}
+.footer__construction {
+  background: repeating-linear-gradient(45deg, #ffd166 0 16px, #1b1325 16px 32px);
+  color: #1b1325;
+  padding: 6px 14px;
+  font-size: 22px;
+}
+.footer__construction span {
+  background: #ffd166;
+  padding: 0 4px;
+}
+.hitcounter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.hitcounter__label {
+  font-size: 22px;
+}
+.odometer {
+  display: inline-flex;
+  background: #1b1325;
+  padding: 3px;
+  gap: 2px;
+}
+.odometer__digit {
+  display: inline-block;
+  height: 30px;
+  width: 22px;
+  overflow: hidden;
+  background: linear-gradient(#000, #3a3050 50%, #000);
+  color: #7ff0b4;
+  font-family: var(--font-pixel);
+  font-size: 28px;
+  line-height: 30px;
+}
+.odometer__col {
+  display: flex;
+  flex-direction: column;
+  transition: transform 1.6s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+.odometer__col span {
+  height: 30px;
+}
+.webring {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.footer__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin: 0;
+}
+.badge {
+  border: 2px solid var(--ink);
+  padding: 0 6px;
+  font-size: 16px;
+  background: var(--win);
+}
+.credits {
+  width: min(680px, 100%);
+  background: var(--win);
+  text-align: left;
+  padding: 8px 14px;
+  font-size: 15px;
+}
+.credits summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.footer__disclaimer {
+  margin: 0;
+  max-width: 600px;
+}
+.footer__secret {
+  margin: 0;
+}
+kbd {
+  font-family: var(--font-pixel);
+  font-size: 1.1em;
+  background: var(--win-face);
+  border: 1px solid var(--bevel-lo);
+  padding: 0 4px;
+}
+
+/* ---------- Chaos Mode ---------- */
+html.chaos body {
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", var(--font-round);
+  background-image: radial-gradient(#ff8fb4 2px, transparent 2px), radial-gradient(#ffd166 2px, transparent 2px);
+  background-size: 22px 22px, 34px 34px;
+  background-position: 0 0, 11px 17px;
+  animation: chaos-bg 8s linear infinite;
+}
+html.chaos .win--chaos {
+  transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1), box-shadow 0.2s;
+  z-index: 3;
+}
+html.chaos .win--chaos:hover,
+html.chaos .win--chaos:focus-within {
+  z-index: 5;
+  box-shadow: 10px 10px 0 var(--accent);
+}
+html.chaos .section-title {
+  animation: rainbow 3s linear infinite;
+}
+html.chaos .hero__name {
+  animation: rainbow 2s linear infinite, wobble 1.2s ease-in-out infinite;
+}
+html.chaos .btn98 {
+  animation: jiggle 2.4s ease-in-out infinite;
+}
+html.chaos .btn98:nth-child(2n) {
+  animation-delay: -1.2s;
+}
+.chaos-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--font-pixel);
+  font-size: 24px;
+  background: var(--accent);
+  color: var(--title-ink);
+  padding: 2px 0;
+}
+.chaos-marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker 14s linear infinite;
+}
+.chaos-sticker {
+  position: fixed;
+  z-index: 45;
+  font-size: clamp(28px, 6vw, 46px);
+  pointer-events: none;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes rainbow {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+@keyframes wobble {
+  50% {
+    transform: rotate(-3deg) scale(1.04);
+  }
+}
+@keyframes jiggle {
+  0%,
+  90%,
+  100% {
+    transform: none;
+  }
+  93% {
+    transform: rotate(-4deg);
+  }
+  96% {
+    transform: rotate(4deg);
+  }
+}
+@keyframes chaos-bg {
+  to {
+    background-position: 22px 22px, -23px 51px;
+  }
+}
+/* Phones: windows stay stacked and readable, they just wobble. */
+@media (max-width: 767px) {
+  html.chaos .win--chaos {
+    animation: wobble 3s ease-in-out infinite;
+  }
+  html.chaos .win--chaos:nth-child(2n) {
+    animation-delay: -1.5s;
+  }
+}

@@ -1,0 +1,111 @@
+/* ---------- Shared toy pieces ---------- */
+.toy-canvas {
+  display: block;
+  width: 100%;
+  height: 240px;
+  background: var(--win-face);
+  border-radius: 2px;
+}
+.toy-canvas--tall {
+  height: 280px;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: flex-end;
+}
+.controls label {
+  flex: 1 1 180px;
+  font-size: 15px;
+}
+.controls--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+/* ---------- Bottle ---------- */
+.bottle {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.bottle__svg {
+  width: 120px;
+  height: 200px;
+}
+.bottle__milk,
+.bottle__wave {
+  transition: y 0.4s ease, d 0.4s ease;
+}
+.dials {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+.dial {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+}
+.dial svg {
+  display: block;
+  margin: 0 auto;
+}
+.dial .pixel {
+  font-size: 17px;
+  color: var(--accent);
+}
+
+/* ---------- Galton meter ---------- */
+.meter {
+  position: relative;
+  height: 18px;
+  margin-top: 12px;
+  background: var(--win);
+}
+.meter__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--title-a), var(--title-b));
+  transition: width 0.3s;
+}
+.meter__mid {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 50%;
+  width: 2px;
+  background: var(--ink);
+}
+
+/* ---------- Music box ---------- */
+.musicbox {
+  position: relative;
+  height: 140px;
+  background: repeating-linear-gradient(90deg, var(--win-face) 0 10px, var(--win) 10px 20px);
+  overflow: hidden;
+}
+.musicbox__pin {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  margin: 0 0 -4px -4px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  transition: transform 0.15s, background 0.15s;
+}
+.musicbox__pin.is-on {
+  background: var(--accent);
+  transform: scale(2);
+  box-shadow: 0 0 10px var(--accent);
+}
+.musicbox__head {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  opacity: 0.6;
+}
