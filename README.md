@@ -43,7 +43,7 @@ The `api/` folder holds serverless functions (Vercel). They need these environme
 | Variable | Used by |
 |---|---|
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (or `KV_REST_API_URL`, `KV_REST_API_TOKEN`) | guestbook, hit counter, rate limits |
-| `ANTHROPIC_API_KEY` | Ask Alphie live replies |
+| `GEMINI_API_KEY` (optional `GEMINI_MODEL`, default `gemini-flash-latest`) | Ask Alphie live replies |
 
 Without them, the site still works: the counter shows your own visits, the guestbook shows examples, and Alphie answers from her scripted baby brain.
 

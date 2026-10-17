@@ -1,9 +1,9 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { babyReply } from "../src/lib/babyTalk.js";
 import { tidy } from "./_lib/filter.js";
 import { clientId, getRedis, json, limiter, readJson } from "./_lib/http.js";
 
-const MODEL = "claude-haiku-5-5";
+// Model is configurable so it can be swapped without a code change.
+const MODEL = process.env.GEMINI_MODEL || "gemini-flash-latest";
 const MAX_TURNS = 10;
 const DAILY_CAP = 600;
 
@@ -26,68 +26,78 @@ Rules:
 - Do not ask for or repeat personal information.
 - If someone is unkind or tries to make you say inappropriate things, giggle, change the subject to your toys, and stay sweet.`;
 
-let client: Anthropic | null = null;
-function anthropic(): Anthropic | null {
-  if (!process.env.ANTHROPIC_API_KEY) return null;
-  client ??= new Anthropic({ maxRetries: 0, timeout: 15_000 });
-  return client;
+interface Turn {
+  role: "user" | "assistant";
+  content: string;
 }
 
-interface Body {
-  messages?: Array<{ role?: string; content?: unknown }>;
+interface GeminiResponse {
+  candidates?: Array<{ content?: { parts?: Array<{ text?: string; thought?: boolean }> }; finishReason?: string }>;
+  promptFeedback?: { blockReason?: string };
 }
 
 function fallback(last: string, why: string): Response {
   return json({ reply: babyReply(last), source: "scripted", why });
 }
 
+async function askGemini(key: string, history: Turn[]): Promise<{ text?: string; why?: string }> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 15_000);
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(MODEL)}:generateContent`, {
+      method: "POST",
+      signal: ctrl.signal,
+      headers: { "content-type": "application/json", "x-goog-api-key": key },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: SYSTEM }] },
+        contents: history.map((t) => ({ role: t.role === "assistant" ? "model" : "user", parts: [{ text: t.content }] })),
+        generationConfig: { maxOutputTokens: 1024, temperature: 0.9 },
+      }),
+    });
+    if (res.status === 429) return { why: "rate-limited" };
+    if (!res.ok) return { why: `api-${res.status}` };
+    const data = (await res.json()) as GeminiResponse;
+    if (data.promptFeedback?.blockReason) return { why: "blocked" };
+    const text = (data.candidates?.[0]?.content?.parts ?? [])
+      .filter((p) => !p.thought && p.text)
+      .map((p) => p.text)
+      .join(" ")
+      .trim();
+    return text ? { text } : { why: "empty" };
+  } catch {
+    return { why: "network" };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function POST(req: Request): Promise<Response> {
-  const body = await readJson<Body>(req);
-  const history: Anthropic.MessageParam[] = (body?.messages ?? [])
+  const body = await readJson<{ messages?: Array<{ role?: string; content?: unknown }> }>(req);
+  const history: Turn[] = (body?.messages ?? [])
     .slice(-MAX_TURNS * 2)
     .filter((m) => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
-    .map((m) => ({ role: m.role as "user" | "assistant", content: tidy(m.content, 400) }))
+    .map((m) => ({ role: m.role as Turn["role"], content: tidy(m.content, 400) }))
     .filter((m) => m.content.length > 0);
 
-  // The API needs the conversation to start with a user turn and end with one.
+  // The conversation must start and end with a user turn.
   while (history.length && history[0].role !== "user") history.shift();
   const last = history.at(-1);
   if (!last || last.role !== "user") return json({ error: "Say something to Alphie first!" }, 400);
-  const lastText = String(last.content);
 
-  const api = anthropic();
-  if (!api) return fallback(lastText, "no-key");
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) return fallback(last.content, "no-key");
 
   const perVisitor = limiter("chat", 12, "1 h");
-  if (perVisitor && !(await perVisitor.limit(clientId(req))).success) return fallback(lastText, "visitor-limit");
+  if (perVisitor && !(await perVisitor.limit(clientId(req))).success) return fallback(last.content, "visitor-limit");
 
   const r = getRedis();
   if (r) {
     const dayKey = `alphie:chat:day:${new Date().toISOString().slice(0, 10)}`;
     const used = await r.incr(dayKey);
     if (used === 1) await r.expire(dayKey, 60 * 60 * 26);
-    if (used > DAILY_CAP) return fallback(lastText, "daily-cap");
+    if (used > DAILY_CAP) return fallback(last.content, "daily-cap");
   }
 
-  try {
-    const res = await api.messages.create({
-      model: MODEL,
-      max_tokens: 1024,
-      output_config: { effort: "low" },
-      system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
-      messages: history,
-    });
-    if (res.stop_reason === "refusal") return fallback(lastText, "refusal");
-    const reply = res.content
-      .filter((b): b is Anthropic.TextBlock => b.type === "text")
-      .map((b) => b.text)
-      .join(" ")
-      .trim();
-    return reply ? json({ reply, source: "live" }) : fallback(lastText, "empty");
-  } catch (err) {
-    if (err instanceof Anthropic.RateLimitError) return fallback(lastText, "rate-limited");
-    if (err instanceof Anthropic.AuthenticationError) return fallback(lastText, "auth");
-    if (err instanceof Anthropic.APIError) return fallback(lastText, `api-${err.status ?? "error"}`);
-    return fallback(lastText, "network");
-  }
+  const { text, why } = await askGemini(key, history);
+  return text ? json({ reply: text, source: "live" }) : fallback(last.content, why ?? "unknown");
 }
