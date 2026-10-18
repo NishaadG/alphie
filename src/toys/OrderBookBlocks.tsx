@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "../components/Card";
 import { blip } from "../lib/audio";
 import { BETA_QUOTE, MAX_INV, newMarket, pnl, quotes, ROUND_TICKS, step, type Fill, type MMState, type Quote } from "../lib/marketMaker";
-import { rememberEgg } from "../lib/memory";
+import { load, save } from "../lib/memory";
+import { collect } from "../lib/stickers";
 import { mulberry32, randomSeed } from "../lib/rng";
 import { flashMood, say } from "../lib/store";
 
@@ -51,8 +52,11 @@ export function OrderBookBlocks() {
   useEffect(() => {
     if (!done || !running) return;
     setRunning(false);
-    if (alphiePnl > betaPnl) {
-      rememberEgg("beat-beta");
+    const won = alphiePnl > betaPnl;
+    const rec = load("shop", { rounds: 0, wins: 0, best: -Infinity as number });
+    save("shop", { rounds: rec.rounds + 1, wins: rec.wins + (won ? 1 : 0), best: Math.max(rec.best ?? -Infinity, alphiePnl - betaPnl) });
+    if (won) {
+      collect("beat-beta");
       blip("up");
       flashMood("wow");
       say(`I BEAT BETA by ${(alphiePnl - betaPnl).toFixed(2)}! Market maker supreme! 👑`);

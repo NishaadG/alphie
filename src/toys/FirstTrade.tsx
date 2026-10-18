@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Card } from "../components/Card";
 import { blip } from "../lib/audio";
-import { load, rememberEgg, save } from "../lib/memory";
+import { load, save } from "../lib/memory";
 import { alpha, betaReturn, catchUp, isPortfolio, myReturn, newPortfolio, tick, trade, value, type Portfolio } from "../lib/paperTrade";
 import { mulberry32, randomSeed } from "../lib/rng";
+import { collect } from "../lib/stickers";
 import { flashMood, say, useApp } from "../lib/store";
 import { cssVar, useCanvas } from "../lib/useCanvas";
 
@@ -47,7 +48,7 @@ export function FirstTrade() {
     save(KEY, p);
     if (alpha(p) > 0.1 && p.trades > 0 && !celebrated.current) {
       celebrated.current = true;
-      rememberEgg("real-alpha");
+      collect("real-alpha");
       flashMood("wow");
       blip("up");
       say("10% ALPHA?! I'm a REAL Alpha now!! 🎉");

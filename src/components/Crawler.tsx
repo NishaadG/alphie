@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { blip } from "../lib/audio";
+import { collect } from "../lib/stickers";
 import { say, useApp } from "../lib/store";
 
 // Alphie crawling across the nursery floor in a (literal) random walk: each
@@ -34,6 +35,7 @@ export function Crawler() {
           onClick={() => {
             blip("giggle");
             say("Wheee! Random walk!", 2500);
+            collect("crawler");
           }}
         >
           <g stroke="#5c4033" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">

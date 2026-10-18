@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { blip } from "../lib/audio";
 import type { IconName } from "../lib/icons";
 import { mulberry32 } from "../lib/rng";
+import { collect } from "../lib/stickers";
 import { say, useApp } from "../lib/store";
 import { Icon } from "./Icon";
 
@@ -45,6 +46,7 @@ export function ChaosLayer() {
       return;
     }
     blip("cry");
+    collect("tantrum");
     say("WAAAH!! EVERYTHING IS CRASHING!! SELL THE RATTLES!!", 3500);
 
     // Under pressure: speed up every CSS animation (new ones too) and GSAP.

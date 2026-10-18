@@ -6,12 +6,15 @@ import { EggLayer } from "./components/EggLayer";
 import { Footer } from "./components/Footer";
 import { HeightChart } from "./components/HeightChart";
 import { Peekaboo } from "./components/Peekaboo";
+import { NapOverlay, StickerToast } from "./components/StickerToast";
 import { SiteHeader } from "./components/SiteHeader";
 import { SparkleTrail } from "./components/SparkleTrail";
 import { Ticker } from "./components/Ticker";
 import { ToyButtons } from "./components/ToyButtons";
 import { installClickSounds } from "./lib/clickSounds";
 import { recordVisit, type VisitMemory } from "./lib/memory";
+import { useCursors, useExplorer, useIdleNap, useTabTricks } from "./lib/nurseryLife";
+import { collect } from "./lib/stickers";
 import { usePath } from "./lib/router";
 import { useApp } from "./lib/store";
 import { roomFor, wallpaper } from "./lib/wallpaper";
@@ -24,6 +27,8 @@ const StorybookPage = lazy(() => import("./pages/Rooms").then((m) => ({ default:
 const NapRoomPage = lazy(() => import("./pages/Rooms").then((m) => ({ default: m.NapRoomPage })));
 const MonitorPage = lazy(() => import("./pages/Rooms").then((m) => ({ default: m.MonitorPage })));
 const GuestbookPage = lazy(() => import("./pages/Rooms").then((m) => ({ default: m.GuestbookPage })));
+const Stickers = lazy(() => import("./pages/Stickers"));
+const BetaRoom = lazy(() => import("./pages/BetaRoom"));
 
 // Read once per page load (outside React so StrictMode can't count it twice).
 const memory: VisitMemory = recordVisit();
@@ -36,6 +41,8 @@ function Page({ path }: { path: string }) {
   if (path === "/nap-room") return <NapRoomPage />;
   if (path === "/monitor") return <MonitorPage />;
   if (path === "/guestbook") return <GuestbookPage />;
+  if (path === "/stickers") return <Stickers />;
+  if (path === "/beta") return <BetaRoom />;
   return <NotFound />;
 }
 
@@ -46,11 +53,16 @@ export default function App() {
   const tantrum = useApp((s) => s.chaos);
 
   useEffect(() => installClickSounds(), []);
+  useTabTricks();
+  useIdleNap();
+  useCursors();
+  useExplorer(path);
 
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.market = market;
     root.classList.toggle("chaos", tantrum);
+    if (market === "bear") collect("bedtime");
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", market === "bull" ? "#fff8f1" : "#2a2350");
   }, [market, tantrum]);
 
@@ -84,6 +96,8 @@ export default function App() {
       <Buddy />
       <SparkleTrail />
       <Peekaboo />
+      <NapOverlay />
+      <StickerToast />
       <EggLayer />
     </>
   );

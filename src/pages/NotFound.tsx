@@ -1,15 +1,15 @@
 import { useEffect } from "react";
-import { rememberEgg } from "../lib/memory";
 import { Icon } from "../components/Icon";
 import { Link } from "../lib/router";
 import { say } from "../lib/store";
+import { collect } from "../lib/stickers";
 import { usePageTitle } from "./common";
 
 // Alphie random-walked her way off the map. Finding this page counts as a secret.
 export default function NotFound() {
   usePageTitle("Lost!");
   useEffect(() => {
-    rememberEgg("lost");
+    collect("lost");
     say("Oopsie! I crawled somewhere random again…", 4000);
   }, []);
   return (

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { blip } from "../lib/audio";
 import { say } from "../lib/store";
 import { Card } from "./Card";
+import { collect } from "../lib/stickers";
 
 interface Entry {
   name: string;
@@ -77,6 +78,7 @@ export function Guestbook() {
       blip("up");
       setNote("Signed! Alphie is reading it now.");
       say(`Ooh, a note from ${data.entry.name}! *happy kicks*`);
+      collect("guestbook");
     } catch {
       blip("error");
       setNote("The guestbook is napping. Try again in a bit!");

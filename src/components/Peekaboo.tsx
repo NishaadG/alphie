@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { blip } from "../lib/audio";
+import { collect } from "../lib/stickers";
 import { say } from "../lib/store";
 
 const LINES = ["Peekaboo!!", "Boo! Did I scare your portfolio?", "I see you!", "Peekaboo! Hiding is my favourite strategy.", "You found me! +1 alpha"];
@@ -29,6 +30,7 @@ export function Peekaboo() {
 
   const caught = () => {
     blip("giggle");
+    collect("peekaboo");
     say(LINES[Math.floor(Math.random() * LINES.length)], 3000);
     setPeek(null);
   };

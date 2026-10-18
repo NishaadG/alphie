@@ -1,0 +1,68 @@
+/* Beta's secret room: deliberately plain, like a 1996 homepage with no
+   ambitions. It overrides the nursery look while it's on screen. */
+html:has(.beta) body {
+  background: #e8e4da;
+  font-family: "Times New Roman", Times, serif;
+}
+.beta {
+  width: min(640px, 100%);
+  margin: 0 auto;
+  padding: 24px 28px;
+  background: #f4f1ea;
+  border: 1px solid #a8a29a;
+  color: #222;
+  font-size: 18px;
+  text-align: left;
+}
+.beta h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 400;
+  font-size: 34px;
+  margin: 6px 0 0;
+  color: #222;
+}
+.beta__teddy {
+  float: right;
+  filter: grayscale(0.7);
+}
+.beta__sub,
+.beta__caption {
+  color: #666;
+  font-style: italic;
+  margin: 0 0 8px;
+}
+.beta hr {
+  border: 0;
+  border-top: 1px solid #a8a29a;
+  clear: both;
+}
+.beta a {
+  color: #00e;
+}
+.beta__table {
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+.beta__table caption {
+  text-align: left;
+  font-weight: 700;
+  padding-bottom: 4px;
+}
+.beta__table th,
+.beta__table td {
+  border: 1px solid #a8a29a;
+  padding: 4px 12px;
+  text-align: left;
+  font-weight: 400;
+}
+.beta__chart {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  background: #fff;
+  border: 1px solid #a8a29a;
+}
+.beta__chart line {
+  stroke: #444;
+  stroke-width: 2;
+}

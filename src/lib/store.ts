@@ -11,6 +11,9 @@ export interface AppState {
   speech: string | null;
   mood: "tantrum" | "wow" | null;
   swan: boolean;
+  napping: boolean; // dozed off because nobody moved (dims the room)
+  found: string[]; // sticker ids
+  toast: string | null; // sticker just earned
 }
 
 const prefersDark =
@@ -24,6 +27,9 @@ let state: AppState = {
   speech: null,
   mood: null,
   swan: false,
+  napping: false,
+  found: load<{ eggsFound?: string[] }>("visit", {}).eggsFound ?? [],
+  toast: null,
 };
 
 const listeners = new Set<() => void>();

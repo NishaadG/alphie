@@ -1166,3 +1166,190 @@ html.crash body {
   from { transform: rotate(-16deg); }
   to { transform: rotate(16deg); }
 }
+
+/* ---------- Custom cursors (set as variables by useCursors) ---------- */
+html {
+  cursor: var(--cur-main, auto);
+}
+a,
+button,
+summary,
+label,
+[role="button"],
+.crawler__baby,
+.alphie__paci,
+.alphie__body {
+  cursor: var(--cur-click, pointer);
+}
+input[type="text"],
+input:not([type]),
+textarea {
+  cursor: text;
+}
+html.chaos,
+html.chaos body {
+  cursor: var(--cur-tantrum, auto);
+}
+
+/* ---------- Sticker toast ---------- */
+.sticker-toast-wrap {
+  position: fixed;
+  top: calc(var(--ticker-h) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 80;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+}
+.sticker-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px 8px 10px;
+  background: var(--butter);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 5px 0 var(--shadow);
+  text-decoration: none;
+  animation: toast-in 0.5s cubic-bezier(0.3, 1.6, 0.5, 1), toast-out 0.4s ease-in 3.8s forwards;
+}
+.sticker-toast b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 1.1;
+}
+.sticker-toast small {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.sticker-toast__icon {
+  animation: shake 0.4s linear 2;
+}
+@keyframes toast-in {
+  from {
+    transform: translateY(-40px) scale(0.6);
+    opacity: 0;
+  }
+}
+@keyframes toast-out {
+  to {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
+
+/* ---------- Idle nap ---------- */
+.nap-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, rgba(35, 29, 69, 0.15), rgba(35, 29, 69, 0.55));
+  animation: nap-in 1.6s ease-out;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 18vh;
+}
+.nap-overlay__text {
+  margin: 0;
+  padding: 6px 18px;
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  font-size: 20px;
+  text-align: center;
+  max-width: calc(100vw - 32px);
+}
+@keyframes nap-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- Sticker chart ---------- */
+.sticker-progress {
+  height: 22px;
+  width: min(560px, 100%);
+  margin: -8px auto 0;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--card);
+  overflow: hidden;
+}
+.sticker-progress span {
+  display: block;
+  height: 100%;
+  background: repeating-linear-gradient(45deg, var(--pink) 0 12px, var(--butter) 12px 24px);
+  transition: width 0.6s ease;
+}
+.sticker-chart {
+  list-style: none;
+  margin: 0;
+  padding: 22px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 0 7px 0 var(--shadow), inset 0 0 0 8px var(--mint);
+}
+.sticker-spot {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 4px;
+  padding: 14px 10px;
+  text-align: center;
+  border: 3px dashed var(--line);
+  border-radius: 18px;
+}
+.sticker-spot b {
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+.sticker-spot__text {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.sticker-spot__art {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--well);
+}
+.sticker-spot__q {
+  font-family: var(--font-display);
+  font-size: 40px;
+  color: var(--line);
+}
+.sticker-spot.is-found {
+  border-style: solid;
+  border-color: var(--ink);
+  background: var(--butter);
+  transform: rotate(var(--tilt));
+  box-shadow: 0 4px 0 var(--shadow);
+}
+.sticker-spot.is-found .sticker-spot__art {
+  background: var(--card);
+  border: 3px solid var(--ink);
+}
+.sticker-spot.is-found .sticker-spot__text {
+  color: var(--ink);
+}
+.report-preview {
+  display: block;
+  width: min(320px, 100%);
+  margin-top: 16px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  transform: rotate(-2deg);
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.footer__stickers {
+  background: var(--butter);
+}

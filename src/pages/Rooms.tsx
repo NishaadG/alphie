@@ -44,7 +44,7 @@ export function GuestbookPage() {
       <PageTitle icon="pencil" title="Guestbook" sub="Leave Alphie a little note. She can't read yet, but her mum reads them all to her." />
       <Guestbook />
       <p className="caption center">
-        Done signing? Go play in the <Link to="/playroom">Playroom</Link>!
+        Done signing? Go play in the <Link to="/playroom">Playroom</Link>, or check your <Link to="/stickers">sticker chart</Link>!
       </p>
     </>
   );

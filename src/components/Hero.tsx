@@ -8,8 +8,16 @@ function greeting(m: VisitMemory): string {
   if (!m.lastVisit) return "Goo goo! I'm Alphie. Wanna see my toys?";
   const days = Math.floor((Date.now() - m.lastVisit) / 86_400_000);
   const when = days === 0 ? "today" : days === 1 ? "yesterday" : `${days} days ago`;
-  const eggs = m.eggsFound.length ? ` You found ${m.eggsFound.length} of my secrets!` : "";
+  const eggs = m.eggsFound.length ? ` You have ${m.eggsFound.length} stickers on your chart!` : "";
   return `You came back!! Visit #${m.visits + 1}. Last time was ${when}.${eggs}`;
+}
+
+// Alphie knows what time it is where you are.
+function clockLine(hour: number): string | null {
+  if (hour < 5) return `Why are you up at ${hour === 0 ? 12 : hour}am?! Even the market's asleep! Shhh.`;
+  if (hour < 8) return "You're up early! Pre-market crawl? I like your style.";
+  if (hour >= 21) return "It's past my bedtime… try the Bedtime button? *yawn*";
+  return null;
 }
 
 const BELLY = ["Hehe! That tickles my portfolio!", "Boop! +2 basis points of giggles.", "Stop! I'm rebalancing!", "*burp* sorry, liquidity event."];
@@ -25,7 +33,12 @@ export function Hero({ memory }: { memory: VisitMemory }) {
 
   useEffect(() => {
     const t = window.setTimeout(() => say(first, 6000), 500);
-    return () => window.clearTimeout(t);
+    const late = clockLine(new Date().getHours());
+    const t2 = late ? window.setTimeout(() => say(late, 6000), 7000) : undefined;
+    return () => {
+      window.clearTimeout(t);
+      window.clearTimeout(t2);
+    };
   }, [first]);
 
   // At bedtime (bear market) Alphie dozes off if nobody plays with her.

@@ -1,5 +1,8 @@
 import { Crawler } from "./Crawler";
 import { HitCounter } from "./HitCounter";
+import { Link } from "../lib/router";
+import { STICKERS } from "../lib/stickers";
+import { useApp } from "../lib/store";
 import { Icon } from "./Icon";
 
 const CREDITS: Array<[string, string, string]> = [
@@ -16,6 +19,7 @@ const CREDITS: Array<[string, string, string]> = [
 ];
 
 export function Footer() {
+  const found = useApp((s) => s.found.length);
   return (
     <footer className="footer">
       <Crawler />
@@ -33,6 +37,10 @@ export function Footer() {
         </b>
         <span className="crayon">next »</span>
       </nav>
+
+      <Link to="/stickers" className="btn footer__stickers">
+        <Icon name="star" size={24} /> My sticker chart: {found}/{STICKERS.length}
+      </Link>
 
       <p className="footer__badges crayon" aria-hidden="true">
         <span className="badge">BEST VIEWED IN ANY BROWSER</span>

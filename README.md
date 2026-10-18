@@ -32,6 +32,10 @@ A cosy, early-web style personal website for **Alphie** (Alpha Brownian-Motion),
 - **Ask Alphie**: in-character chat with a live model and a scripted fallback.
 - **Tantrum Mode**: Alphie melts down and crashes the nursery market. The ticker plunges, a crash chart draws itself, she cries and throws her toys (each with a red price tag), the page quakes, and every animation on the site runs three times faster, as if everything is under pressure. Still fully usable on phones.
 - **Alphie everywhere**: she peeks in from the edge of the screen now and then (catch her!), crawls a random walk across the nursery floor, sits on the toy shelf and pops up on every toy's idea card.
+- **Sticker Chart** (`/stickers`): 16 stickers for every secret and milestone, saved between visits, with hints for the ones you haven't found.
+- **Report card**: a downloadable PNG with grades for your alpha, your toy-shop record against Beta, your secrets found and your visits, signed by the teddy.
+- **A nursery that's alive**: leave the tab and she cries in the tab title and favicon; sit still for a minute and she naps (the room dims); she knows the real time ("why are you up at 2am?!"); custom rattle cursors (a bottle during tantrums).
+- **Beta's secret room**: type the teddy's name to find his deliberately boring index-fund homepage.
 - **Guestbook, hit-counter odometer, sparkle trail, click sounds with mute, Playtime/Bedtime toggle (bull/bear market), visitor memory.**
 - A few hidden surprises.
 

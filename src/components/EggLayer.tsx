@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { blip } from "../lib/audio";
 import { onKonami, onWord } from "../lib/eggs";
-import { rememberEgg } from "../lib/memory";
+import { navigate } from "../lib/router";
+import { collect } from "../lib/stickers";
 import { flashMood, say, setState, useApp } from "../lib/store";
 import { Icon } from "./Icon";
 
@@ -10,7 +11,7 @@ async function confetti(opts: Record<string, unknown>) {
   void fire({ disableForReducedMotion: true, ...opts });
 }
 
-// Global Easter eggs: Konami flash crash, typed "alpha", and the black swan
+// Global Easter eggs: Konami flash crash, typed "alpha" and "beta", and the black swan
 // (set in the store by booping the pacifier seven times).
 export function EggLayer() {
   const swan = useApp((s) => s.swan);
@@ -18,7 +19,7 @@ export function EggLayer() {
 
   useEffect(() => {
     const offK = onKonami(() => {
-      rememberEgg("crash");
+      collect("crash");
       setCrash(true);
       blip("down");
       flashMood("tantrum", 3200);
@@ -30,21 +31,24 @@ export function EggLayer() {
       }, 3200);
     });
     const offW = onWord("alpha", () => {
-      rememberEgg("word");
+      collect("word");
       flashMood("wow");
       blip("coin");
       say("AL-PHA! 🎉 My very first word!! (Mama is second. Beta is never.)", 5000);
       void confetti({ particleCount: 90, spread: 80, origin: { y: 0.4 }, colors: ["#a34063", "#ffd166", "#8fd6b4", "#9fc9f5"] });
     });
+    // Typing the teddy's name opens his secret room.
+    const offB = onWord("beta", () => navigate("/beta"));
     return () => {
       offK();
       offW();
+      offB();
     };
   }, []);
 
   useEffect(() => {
     if (!swan) return;
-    rememberEgg("swan");
+    collect("swan");
     flashMood("tantrum", 3000);
     blip("down");
     say("A BLACK SWAN?! That wasn't in my model!! 😭", 3500);
