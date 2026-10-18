@@ -10,9 +10,11 @@ interface Quote {
   chg: number;
 }
 
-// A fake nursery stock ticker. Prices drift with the bull/bear toggle.
+// A fake nursery stock ticker. Prices drift with the bull/bear toggle, and
+// crash hard (and fast) during a tantrum.
 export function Ticker() {
   const market = useApp((s) => s.market);
+  const tantrum = useApp((s) => s.chaos);
   const [quotes, setQuotes] = useState<Quote[]>(() => {
     const rng = mulberry32(2026);
     return SYMBOLS.map((sym) => ({ sym, price: 20 + rng() * 180, chg: 0 }));
@@ -20,17 +22,21 @@ export function Ticker() {
 
   useEffect(() => {
     const rng = mulberry32(Date.now() & 0xffff);
-    const bias = market === "bull" ? 0.004 : -0.004;
-    const id = window.setInterval(() => {
-      setQuotes((qs) =>
-        qs.map((q) => {
-          const r = bias + 0.012 * gaussian(rng);
-          return { ...q, price: q.price * (1 + r), chg: r * 100 };
-        }),
-      );
-    }, 2000);
+    const bias = tantrum ? -0.06 : market === "bull" ? 0.004 : -0.004;
+    const vol = tantrum ? 0.03 : 0.012;
+    const id = window.setInterval(
+      () => {
+        setQuotes((qs) =>
+          qs.map((q) => {
+            const r = bias + vol * gaussian(rng);
+            return { ...q, price: Math.max(0.01, q.price * (1 + r)), chg: r * 100 };
+          }),
+        );
+      },
+      tantrum ? 450 : 2000,
+    );
     return () => window.clearInterval(id);
-  }, [market]);
+  }, [market, tantrum]);
 
   const row = quotes.map((q) => (
     <span key={q.sym} className="ticker__item">
@@ -43,7 +49,7 @@ export function Ticker() {
   ));
 
   return (
-    <div className="ticker crayon" role="marquee" aria-label="Nursery market ticker, fake prices">
+    <div className={`ticker crayon ${tantrum ? "ticker--crash" : ""}`} role="marquee" aria-label="Nursery market ticker, fake prices">
       <div className="ticker__track" aria-hidden="true">
         <div className="ticker__group">{row}</div>
         <div className="ticker__group">{row}</div>

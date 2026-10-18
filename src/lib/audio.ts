@@ -41,7 +41,7 @@ function tone(freq: number, start: number, dur: number, type: OscillatorType, pe
   osc.stop(start + dur + 0.02);
 }
 
-export type Blip = "click" | "open" | "close" | "coin" | "up" | "down" | "squeak" | "error";
+export type Blip = "click" | "open" | "close" | "coin" | "up" | "down" | "squeak" | "giggle" | "cry" | "error";
 
 export function blip(kind: Blip = "click"): void {
   const a = audio();
@@ -82,6 +82,36 @@ export function blip(kind: Blip = "click"): void {
         osc.start(t);
         osc.stop(t + 0.2);
       }
+      break;
+    case "cry":
+      {
+        // WAAAH: a wobbly sawtooth wail that rises then sobs downward.
+        const osc = a.ctx.createOscillator();
+        const lfo = a.ctx.createOscillator();
+        const wob = a.ctx.createGain();
+        const lp = a.ctx.createBiquadFilter();
+        const g = a.ctx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(480, t);
+        osc.frequency.linearRampToValueAtTime(720, t + 0.25);
+        osc.frequency.linearRampToValueAtTime(390, t + 1.1);
+        lfo.frequency.value = 7;
+        wob.gain.value = 30;
+        lp.type = "lowpass";
+        lp.frequency.value = 1800;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.09, t + 0.08);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 1.2);
+        lfo.connect(wob).connect(osc.frequency);
+        osc.connect(lp).connect(g).connect(a.master);
+        osc.start(t);
+        lfo.start(t);
+        osc.stop(t + 1.25);
+        lfo.stop(t + 1.25);
+      }
+      break;
+    case "giggle":
+      [700, 880, 760, 990].forEach((f, i) => tone(f, t + i * 0.07, 0.08, "triangle", 0.13));
       break;
     case "error":
       tone(196, t, 0.25, "square", 0.08);

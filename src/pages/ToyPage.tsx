@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import { Alphie } from "../components/Alphie";
 import { Icon } from "../components/Icon";
 import { Link } from "../lib/router";
 import { BottleBS } from "../toys/BottleBS";
@@ -39,6 +40,9 @@ export default function ToyPage({ slug }: { slug: string }) {
           <Toy />
         </div>
         <aside className={`idea-card idea-card--${toy.tint}`} aria-label="About this toy">
+          <div className="idea-card__alphie" aria-hidden="true">
+            <Alphie size={74} mood="happy" />
+          </div>
           <p className="idea-card__label crayon">the big idea</p>
           <p className="idea-card__idea">{toy.idea}</p>
           <p className="idea-card__label crayon">how to play</p>

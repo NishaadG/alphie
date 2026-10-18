@@ -30,7 +30,9 @@ A cosy, early-web style personal website for **Alphie** (Alpha Brownian-Motion),
 - **Scroll story**: five scenes along a crawl path that draws itself as you scroll (GSAP ScrollTrigger).
 - **3D crib**: low-poly Alphie and Beta in three.js, lazy-loaded.
 - **Ask Alphie**: in-character chat with a live model and a scripted fallback.
-- **Guestbook, hit-counter odometer, sparkle trail, click sounds with mute, Playtime/Bedtime toggle (bull/bear market), Tantrum Mode, visitor memory.**
+- **Tantrum Mode**: Alphie melts down and crashes the nursery market. The ticker plunges, a crash chart draws itself, she cries and throws her toys (each with a red price tag), the page quakes, and every animation on the site runs three times faster, as if everything is under pressure. Still fully usable on phones.
+- **Alphie everywhere**: she peeks in from the edge of the screen now and then (catch her!), crawls a random walk across the nursery floor, sits on the toy shelf and pops up on every toy's idea card.
+- **Guestbook, hit-counter odometer, sparkle trail, click sounds with mute, Playtime/Bedtime toggle (bull/bear market), visitor memory.**
 - A few hidden surprises.
 
 ## Run it

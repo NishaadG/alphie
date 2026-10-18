@@ -1,3 +1,4 @@
+import { Crawler } from "./Crawler";
 import { HitCounter } from "./HitCounter";
 import { Icon } from "./Icon";
 
@@ -17,6 +18,7 @@ const CREDITS: Array<[string, string, string]> = [
 export function Footer() {
   return (
     <footer className="footer">
+      <Crawler />
       <div className="footer__rug">
       <div className="footer__construction puffy crayon" aria-hidden="true">
         <b>🚧 UNDER CONSTRUCTION 🚧</b> <span>(babies are always growing)</span>

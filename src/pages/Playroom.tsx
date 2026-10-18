@@ -1,3 +1,4 @@
+import { Alphie } from "../components/Alphie";
 import { Icon } from "../components/Icon";
 import { Link } from "../lib/router";
 import { PageTitle } from "./common";
@@ -20,7 +21,9 @@ export default function Playroom() {
           </li>
         ))}
       </ul>
-      <div className="shelf__plank" aria-hidden="true" />
+      <div className="shelf__plank" aria-hidden="true">
+        <Alphie size={92} mood="wow" className="shelf__alphie" />
+      </div>
     </>
   );
 }

@@ -29,11 +29,11 @@ export function ToyButtons() {
         </span>
         <span className="toy-btn__label">{market === "bull" ? "Playtime" : "Bedtime"}</span>
       </button>
-      <button type="button" className="toy-btn toy-btn--tantrum" aria-pressed={tantrum} onClick={() => setState({ chaos: !tantrum })} title="Tantrum Mode">
+      <button type="button" className="toy-btn toy-btn--tantrum" aria-pressed={tantrum} onClick={() => setState({ chaos: !tantrum })} title={tantrum ? "Calm Alphie down" : "Tantrum Mode: crash the market"}>
         <span className="toy-btn__icon">
           <Icon name="tantrum" size={30} />
         </span>
-        <span className="toy-btn__label">Tantrum</span>
+        <span className="toy-btn__label">{tantrum ? "Calm down" : "Tantrum"}</span>
       </button>
       <button
         type="button"

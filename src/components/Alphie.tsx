@@ -20,11 +20,12 @@ export function Alphie({ mood, size = 220, onPacifier, onBelly, className = "" }
   const market = useApp((s) => s.market);
   const asleep = useApp((s) => s.asleep);
   const flash = useApp((s) => s.mood);
+  const tantrum = useApp((s) => s.chaos);
   const svgRef = useRef<SVGSVGElement>(null);
   const [look, setLook] = useState({ x: 0, y: 0 });
   const [blink, setBlink] = useState(false);
 
-  const face: Mood = asleep ? "sleep" : flash ?? mood ?? (market === "bull" ? "happy" : "worried");
+  const face: Mood = asleep ? "sleep" : tantrum ? "tantrum" : flash ?? mood ?? (market === "bull" ? "happy" : "worried");
 
   useEffect(() => {
     let frame = 0;
@@ -134,7 +135,18 @@ export function Alphie({ mood, size = 220, onPacifier, onBelly, className = "" }
 
         {/* eyes */}
         {[EYE_L, EYE_R].map((e, i) =>
-          eyesClosed ? (
+          face === "tantrum" ? (
+            // squeezed-shut crying eyes: > <
+            <path
+              key={i}
+              d={i === 0 ? `M${e.x - 12} ${e.y - 8} L${e.x + 8} ${e.y} L${e.x - 12} ${e.y + 8}` : `M${e.x + 12} ${e.y - 8} L${e.x - 8} ${e.y} L${e.x + 12} ${e.y + 8}`}
+              fill="none"
+              stroke="#5c4033"
+              strokeWidth="4.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ) : eyesClosed ? (
             <path
               key={i}
               d={`M${e.x - 12} ${e.y} Q${e.x} ${e.y + 9} ${e.x + 12} ${e.y}`}
@@ -157,6 +169,14 @@ export function Alphie({ mood, size = 220, onPacifier, onBelly, className = "" }
           <g stroke="#5c4033" strokeWidth="3" strokeLinecap="round">
             <line x1="64" y1="86" x2="84" y2="80" />
             <line x1="136" y1="86" x2="116" y2="80" />
+          </g>
+        )}
+        {face === "tantrum" && (
+          <g className="alphie__tears" fill="#8fd0ff" stroke="#4a8fc4" strokeWidth="2">
+            <path d="M68 116 q-5 9 0 12 q5 -3 0 -12z" />
+            <path d="M132 116 q-5 9 0 12 q5 -3 0 -12z" />
+            <path d="M62 120 q-5 9 0 12 q5 -3 0 -12z" />
+            <path d="M138 120 q-5 9 0 12 q5 -3 0 -12z" />
           </g>
         )}
         {face === "tantrum" && (

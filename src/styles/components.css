@@ -770,6 +770,7 @@
   font-weight: 600;
 }
 .shelf__plank {
+  position: relative;
   height: 18px;
   margin-top: -14px;
   border-radius: 8px;
@@ -1053,4 +1054,115 @@ html.crash body {
   white-space: nowrap;
   font-size: 17px;
   color: var(--ink-soft);
+}
+
+/* ---------- Alphie cameos ---------- */
+.shelf__alphie {
+  position: absolute;
+  right: 28px;
+  bottom: 6px;
+  transform: rotate(4deg);
+  filter: drop-shadow(0 3px 0 var(--shadow));
+}
+@media (max-width: 700px) {
+  .shelf__alphie {
+    display: none;
+  }
+}
+.idea-card__alphie {
+  position: absolute;
+  top: -58px;
+  right: 14px;
+  height: 64px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.idea-card {
+  margin-top: 40px;
+}
+@media (min-width: 960px) {
+  .idea-card {
+    margin-top: 58px;
+  }
+}
+
+/* Peekaboo: Alphie slides in from the side of the screen now and then. */
+.peek {
+  position: fixed;
+  z-index: 56;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 3px 0 var(--shadow));
+}
+.peek--left {
+  left: 0;
+  animation: peek-left 4.2s ease-in-out forwards;
+}
+.peek--right {
+  right: 0;
+  animation: peek-right 4.2s ease-in-out forwards;
+}
+@keyframes peek-left {
+  0%,
+  100% {
+    transform: translateX(-120px) rotate(90deg);
+  }
+  12%,
+  85% {
+    transform: translateX(-16px) rotate(90deg);
+  }
+}
+@keyframes peek-right {
+  0%,
+  100% {
+    transform: translateX(120px) rotate(-90deg);
+  }
+  12%,
+  85% {
+    transform: translateX(16px) rotate(-90deg);
+  }
+}
+.peek svg {
+  display: block;
+}
+
+/* Crawling across the floorboards in the footer. */
+.crawler {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  right: 0;
+  height: 70px;
+  pointer-events: none;
+}
+.crawler__baby {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  transition: left 1.3s ease-in-out;
+  pointer-events: auto;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 0 rgba(92, 64, 51, 0.25));
+}
+.crawler__baby svg {
+  display: block;
+  transition: transform 0.2s;
+  animation: crawl-bob 0.7s ease-in-out infinite alternate;
+}
+.crawler__limb {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: crawl-limb 0.7s ease-in-out infinite alternate;
+}
+.crawler__limb--b {
+  animation-delay: -0.35s;
+}
+@keyframes crawl-bob {
+  to { translate: 0 -3px; }
+}
+@keyframes crawl-limb {
+  from { transform: rotate(-16deg); }
+  to { transform: rotate(16deg); }
 }

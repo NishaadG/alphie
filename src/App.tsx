@@ -5,6 +5,7 @@ import { ChaosLayer } from "./components/ChaosLayer";
 import { EggLayer } from "./components/EggLayer";
 import { Footer } from "./components/Footer";
 import { HeightChart } from "./components/HeightChart";
+import { Peekaboo } from "./components/Peekaboo";
 import { SiteHeader } from "./components/SiteHeader";
 import { SparkleTrail } from "./components/SparkleTrail";
 import { Ticker } from "./components/Ticker";
@@ -82,6 +83,7 @@ export default function App() {
       <ToyButtons />
       <Buddy />
       <SparkleTrail />
+      <Peekaboo />
       <EggLayer />
     </>
   );
