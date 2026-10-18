@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { blip } from "../lib/audio";
 import { babyReply } from "../lib/babyTalk";
-import { RetroWindow } from "./RetroWindow";
+import { Card } from "./Card";
 
 interface Msg {
   role: "user" | "assistant";
@@ -56,8 +56,8 @@ export function AskAlphie() {
   };
 
   return (
-    <RetroWindow
-      title="ask_alphie.exe — Baby Chat 98"
+    <Card
+      title="Baby Monitor" tint="blue"
       icon="💬"
       id="chat"
       status={
@@ -68,7 +68,7 @@ export function AskAlphie() {
       }
     >
       <div className="chat">
-        <ol className="chat__log bevel-in" ref={logRef} aria-live="polite" aria-label="Chat with Alphie">
+        <ol className="chat__log well" ref={logRef} aria-live="polite" aria-label="Chat with Alphie">
           {msgs.map((m, i) => (
             <li key={i} className={`chat__msg chat__msg--${m.role}`}>
               {m.role === "assistant" && (
@@ -90,7 +90,7 @@ export function AskAlphie() {
         </ol>
         <div className="chat__chips">
           {SUGGESTIONS.map((s) => (
-            <button key={s} type="button" className="btn98 chat__chip" onClick={() => void send(s)} disabled={busy}>
+            <button key={s} type="button" className="btn chat__chip" onClick={() => void send(s)} disabled={busy}>
               {s}
             </button>
           ))}
@@ -99,12 +99,12 @@ export function AskAlphie() {
           <label className="sr-only" htmlFor="chat-input">
             Message Alphie
           </label>
-          <input id="chat-input" className="field98" value={text} onChange={(e) => setText(e.target.value)} maxLength={400} placeholder="Type to Alphie…" autoComplete="off" />
-          <button type="submit" className="btn98" disabled={busy || !text.trim()}>
+          <input id="chat-input" className="field" value={text} onChange={(e) => setText(e.target.value)} maxLength={400} placeholder="Type to Alphie…" autoComplete="off" />
+          <button type="submit" className="btn" disabled={busy || !text.trim()}>
             Send
           </button>
         </form>
       </div>
-    </RetroWindow>
+    </Card>
   );
 }

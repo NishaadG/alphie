@@ -1,6 +1,6 @@
-# Alphie's Homepage
+# Alphie's Nursery
 
-A retro personal website for **Alphie** (Alpha Brownian-Motion), a baby quant who crawls in random walks and builds nursery toys that are secretly quant models.
+A cosy, early-web style personal website for **Alphie** (Alpha Brownian-Motion), a baby quant who crawls in random walks and builds nursery toys that are secretly quant models.
 
 > "Born to beat the benchmark. (Sometimes.)"
 
@@ -16,7 +16,8 @@ A retro personal website for **Alphie** (Alpha Brownian-Motion), a baby quant wh
 
 ## What's inside
 
-- **AlphieOS 98 desktop**: Win98-style windows, Start menu, taskbar clock, fake nursery stock ticker.
+- **Six rooms (pages)**: Home, Playroom (every toy has its own page), Storybook, Nap Room, Baby Monitor and Guestbook, linked by alphabet blocks that spell A-L-P-H-I-E.
+- **Nursery look**: pastel quilt cards, a baby-book "All About Me" page, crayon handwriting, drifting clouds by day and stars at bedtime.
 - **Alphie herself**: hand-drawn SVG; eyes follow your cursor or finger, moods follow the market, she naps in a bear market.
 - **Toybox** (all playable, all real maths):
   - *Monte Carlo Mobile*: crib-mobile strings are simulated geometric Brownian motion paths.
@@ -28,7 +29,7 @@ A retro personal website for **Alphie** (Alpha Brownian-Motion), a baby quant wh
 - **Scroll story**: five scenes along a crawl path that draws itself as you scroll (GSAP ScrollTrigger).
 - **3D crib**: low-poly Alphie and Beta in three.js, lazy-loaded.
 - **Ask Alphie**: in-character chat with a live model and a scripted fallback.
-- **Guestbook, hit-counter odometer, sparkle trail, click sounds with mute, bull/bear day/night toggle, Chaos Mode, visitor memory.**
+- **Guestbook, hit-counter odometer, sparkle trail, click sounds with mute, Playtime/Bedtime toggle (bull/bear market), Tantrum Mode, visitor memory.**
 - A few hidden surprises.
 
 ## Run it

@@ -1,43 +1,57 @@
-import { useCallback, useEffect, useState } from "react";
-import { AskAlphie } from "./components/AskAlphie";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { BootScreen } from "./components/BootScreen";
+import { Buddy } from "./components/Buddy";
 import { ChaosLayer } from "./components/ChaosLayer";
-import { CharacterSheet } from "./components/CharacterSheet";
-import { Crib3D } from "./components/Crib3D";
 import { EggLayer } from "./components/EggLayer";
 import { Footer } from "./components/Footer";
-import { Guestbook } from "./components/Guestbook";
-import { Hero } from "./components/Hero";
+import { SiteHeader } from "./components/SiteHeader";
 import { SparkleTrail } from "./components/SparkleTrail";
-import { Story } from "./components/Story";
-import { Taskbar } from "./components/Taskbar";
 import { Ticker } from "./components/Ticker";
+import { ToyButtons } from "./components/ToyButtons";
 import { installClickSounds } from "./lib/clickSounds";
 import { recordVisit, type VisitMemory } from "./lib/memory";
+import { usePath } from "./lib/router";
 import { useApp } from "./lib/store";
-import { Toybox } from "./toys/Toybox";
+import Home from "./pages/Home";
+
+const Playroom = lazy(() => import("./pages/Playroom"));
+const ToyPage = lazy(() => import("./pages/ToyPage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const StorybookPage = lazy(() => import("./pages/Rooms").then((m) => ({ default: m.StorybookPage })));
+const NapRoomPage = lazy(() => import("./pages/Rooms").then((m) => ({ default: m.NapRoomPage })));
+const MonitorPage = lazy(() => import("./pages/Rooms").then((m) => ({ default: m.MonitorPage })));
+const GuestbookPage = lazy(() => import("./pages/Rooms").then((m) => ({ default: m.GuestbookPage })));
 
 // Read once per page load (outside React so StrictMode can't count it twice).
 const memory: VisitMemory = recordVisit();
 
+function Page({ path }: { path: string }) {
+  if (path === "/") return <Home memory={memory} />;
+  if (path === "/playroom") return <Playroom />;
+  if (path.startsWith("/toys/")) return <ToyPage slug={path.slice(6)} />;
+  if (path === "/storybook") return <StorybookPage />;
+  if (path === "/nap-room") return <NapRoomPage />;
+  if (path === "/monitor") return <MonitorPage />;
+  if (path === "/guestbook") return <GuestbookPage />;
+  return <NotFound />;
+}
+
 export default function App() {
   const [booted, setBooted] = useState(false);
-  const [swan, setSwan] = useState(false);
+  const path = usePath();
   const market = useApp((s) => s.market);
-  const chaos = useApp((s) => s.chaos);
+  const tantrum = useApp((s) => s.chaos);
 
   useEffect(() => installClickSounds(), []);
 
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.market = market;
-    root.classList.toggle("chaos", chaos);
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", market === "bull" ? "#fff8f1" : "#1f1830");
-  }, [market, chaos]);
+    root.classList.toggle("chaos", tantrum);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", market === "bull" ? "#fff8f1" : "#2a2350");
+  }, [market, tantrum]);
 
   const onBooted = useCallback(() => setBooted(true), []);
-  const onSwanDone = useCallback(() => setSwan(false), []);
-  const onSwan = useCallback(() => setSwan(true), []);
 
   return (
     <>
@@ -45,25 +59,24 @@ export default function App() {
       <a className="skip" href="#main">
         Skip to content
       </a>
+      <div className="sky" aria-hidden="true">
+        <span className="cloud cloud--1" />
+        <span className="cloud cloud--2" />
+        <span className="cloud cloud--3" />
+      </div>
       <Ticker />
+      <SiteHeader />
       <ChaosLayer />
-      <main id="main" className="desktop">
-        <div className="row row--hero">
-          <Hero memory={memory} onSwan={onSwan} />
-          <CharacterSheet />
-        </div>
-        <Toybox />
-        <Story />
-        <div className="row row--two">
-          <AskAlphie />
-          <Crib3D />
-        </div>
-        <Guestbook />
-        <Footer />
+      <main id="main" className="page" key={path}>
+        <Suspense fallback={<p className="loading crayon">Crawling over… 👶</p>}>
+          <Page path={path} />
+        </Suspense>
       </main>
-      <Taskbar />
+      <Footer />
+      <ToyButtons />
+      <Buddy />
       <SparkleTrail />
-      <EggLayer swan={swan} onSwanDone={onSwanDone} />
+      <EggLayer />
     </>
   );
 }

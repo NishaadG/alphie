@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { RetroWindow } from "../components/RetroWindow";
+import { Card } from "../components/Card";
 import { blip } from "../lib/audio";
 import { load, rememberEgg, save } from "../lib/memory";
 import { alpha, betaReturn, catchUp, isPortfolio, myReturn, newPortfolio, tick, trade, value, type Portfolio } from "../lib/paperTrade";
@@ -102,8 +102,8 @@ export function FirstTrade() {
   const maxBuy = Math.floor(p.cash / p.price);
 
   return (
-    <RetroWindow
-      title="babys_first_trade.exe"
+    <Card
+      title="Baby's First Trade" tint="pink"
       icon="🐷"
       status={
         <>
@@ -117,35 +117,35 @@ export function FirstTrade() {
         called <b>alpha</b>. Your piggy bank is saved for next time!
       </p>
       <div className="ft__quote">
-        <span className="pixel ft__sym">RATTLE</span>
+        <span className="crayon ft__sym">RATTLE</span>
         <b className="ft__px">{p.price.toFixed(2)}</b>
         <span className={p.price >= p.startPrice ? "up" : "down"}>{pct(betaReturn(p))} since start</span>
       </div>
       <canvas ref={ref} className="toy-canvas ft__chart" role="img" aria-label={`RATTLE price chart, now ${p.price.toFixed(2)}`} />
       <div className="stat-row ft__stats">
-        <span className="stat bevel-in">🥛 {p.cash.toFixed(0)}</span>
-        <span className="stat bevel-in">🪇 ×{p.shares}</span>
-        <span className="stat bevel-in">You {pct(myReturn(p))}</span>
-        <span className="stat bevel-in">🧸 Beta {pct(betaReturn(p))}</span>
+        <span className="stat well">🥛 {p.cash.toFixed(0)}</span>
+        <span className="stat well">🪇 ×{p.shares}</span>
+        <span className="stat well">You {pct(myReturn(p))}</span>
+        <span className="stat well">🧸 Beta {pct(betaReturn(p))}</span>
       </div>
       <div className="controls">
-        <button type="button" className="btn98" onClick={() => doTrade(1)} disabled={maxBuy < 1} data-sound="none">
+        <button type="button" className="btn" onClick={() => doTrade(1)} disabled={maxBuy < 1} data-sound="none">
           Buy 1
         </button>
-        <button type="button" className="btn98" onClick={() => doTrade(maxBuy)} disabled={maxBuy < 1} data-sound="none">
+        <button type="button" className="btn" onClick={() => doTrade(maxBuy)} disabled={maxBuy < 1} data-sound="none">
           Buy all ({maxBuy})
         </button>
-        <button type="button" className="btn98" onClick={() => doTrade(-1)} disabled={p.shares < 1} data-sound="none">
+        <button type="button" className="btn" onClick={() => doTrade(-1)} disabled={p.shares < 1} data-sound="none">
           Sell 1
         </button>
-        <button type="button" className="btn98" onClick={() => doTrade(-p.shares)} disabled={p.shares < 1} data-sound="none">
+        <button type="button" className="btn" onClick={() => doTrade(-p.shares)} disabled={p.shares < 1} data-sound="none">
           Sell all
         </button>
-        <button type="button" className="btn98" onClick={reset}>
+        <button type="button" className="btn" onClick={reset}>
           🐷 New piggy bank
         </button>
       </div>
-      <p className="caption pixel">Total: {value(p).toFixed(2)} milk coins. Bull markets drift up, bear markets drift down (taskbar toggle!).</p>
-    </RetroWindow>
+      <p className="caption crayon">Total: {value(p).toFixed(2)} milk coins. Bull markets drift up, bear markets drift down (try the ☀️ / 🌙 button!).</p>
+    </Card>
   );
 }

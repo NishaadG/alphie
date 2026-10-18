@@ -10,6 +10,7 @@ export interface AppState {
   asleep: boolean;
   speech: string | null;
   mood: "tantrum" | "wow" | null;
+  swan: boolean;
 }
 
 const prefersDark =
@@ -22,6 +23,7 @@ let state: AppState = {
   asleep: false,
   speech: null,
   mood: null,
+  swan: false,
 };
 
 const listeners = new Set<() => void>();

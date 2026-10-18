@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { blip } from "../lib/audio";
 import { onKonami, onWord } from "../lib/eggs";
 import { rememberEgg } from "../lib/memory";
-import { flashMood, say } from "../lib/store";
-
-export type Egg = "swan" | "crash" | null;
+import { flashMood, say, setState, useApp } from "../lib/store";
 
 async function confetti(opts: Record<string, unknown>) {
   const { default: fire } = await import("canvas-confetti");
@@ -12,8 +10,9 @@ async function confetti(opts: Record<string, unknown>) {
 }
 
 // Global Easter eggs: Konami flash crash, typed "alpha", and the black swan
-// (triggered from the pacifier, so it is passed in as `swan`).
-export function EggLayer({ swan, onSwanDone }: { swan: boolean; onSwanDone: () => void }) {
+// (set in the store by booping the pacifier seven times).
+export function EggLayer() {
+  const swan = useApp((s) => s.swan);
   const [crash, setCrash] = useState(false);
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export function EggLayer({ swan, onSwanDone }: { swan: boolean; onSwanDone: () =
       flashMood("wow");
       blip("coin");
       say("AL-PHA! 🎉 My very first word!! (Mama is second. Beta is never.)", 5000);
-      void confetti({ particleCount: 90, spread: 80, origin: { y: 0.4 }, colors: ["#a34063", "#ffd166", "#2f9e6b"] });
+      void confetti({ particleCount: 90, spread: 80, origin: { y: 0.4 }, colors: ["#a34063", "#ffd166", "#8fd6b4", "#9fc9f5"] });
     });
     return () => {
       offK();
@@ -49,9 +48,9 @@ export function EggLayer({ swan, onSwanDone }: { swan: boolean; onSwanDone: () =
     blip("down");
     say("A BLACK SWAN?! That wasn't in my model!! 😭", 3500);
     void confetti({ particleCount: 60, spread: 120, colors: ["#111111", "#444444", "#ffffff"], shapes: ["circle"] });
-    const t = window.setTimeout(onSwanDone, 4000);
+    const t = window.setTimeout(() => setState({ swan: false }), 4000);
     return () => window.clearTimeout(t);
-  }, [swan, onSwanDone]);
+  }, [swan]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("crash", crash);

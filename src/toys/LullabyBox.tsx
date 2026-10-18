@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { RetroWindow } from "../components/RetroWindow";
+import { Card } from "../components/Card";
 import { applyMute, playLullaby, stopLullaby } from "../lib/audio";
 import { mulberry32, randomSeed } from "../lib/rng";
 import { setState, useApp } from "../lib/store";
@@ -44,8 +44,8 @@ export function LullabyBox() {
   };
 
   return (
-    <RetroWindow
-      title="lullaby_box.exe"
+    <Card
+      title="Random-Walk Lullaby Box" tint="lilac"
       icon="🎶"
       status={
         <>
@@ -57,7 +57,7 @@ export function LullabyBox() {
       <p className="caption">
         Alphie's crawl goes up or down one step at a time, at random. Turn each step into a note and you get her bedtime song.
       </p>
-      <div className="musicbox bevel-in" role="img" aria-label="Music box drum showing the notes of the random-walk melody">
+      <div className="musicbox well" role="img" aria-label="Music box drum showing the notes of the random-walk melody">
         {notes.map((n, i) => (
           <span
             key={i}
@@ -68,14 +68,14 @@ export function LullabyBox() {
         {step >= 0 && <span className="musicbox__head" style={{ left: `${(step / (LENGTH - 1)) * 94 + 3}%` }} />}
       </div>
       <div className="controls">
-        <button type="button" className="btn98" onClick={toggle} aria-pressed={playing} data-sound="none">
+        <button type="button" className="btn" onClick={toggle} aria-pressed={playing} data-sound="none">
           {playing ? "⏹ Stop" : "▶ Wind it up"}
         </button>
-        <button type="button" className="btn98" onClick={() => setSeed(randomSeed() % 10000)}>
+        <button type="button" className="btn" onClick={() => setSeed(randomSeed() % 10000)}>
           🎲 New crawl, new song
         </button>
       </div>
       {muted && <p className="caption">🔇 Sound is muted. Winding it up turns sound back on.</p>}
-    </RetroWindow>
+    </Card>
   );
 }

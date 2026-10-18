@@ -93,3 +93,38 @@
     justify-self: center;
   }
 }
+
+/* Each scene is a page torn from a picture book. */
+.storypage {
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: 6px 26px 26px 6px;
+  box-shadow: 0 7px 0 var(--shadow), inset 10px 0 0 var(--pink);
+  overflow: hidden;
+}
+.scene--right.storypage {
+  border-radius: 26px 6px 6px 26px;
+  box-shadow: 0 7px 0 var(--shadow), inset -10px 0 0 var(--blue);
+}
+.storypage__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px 4px 24px;
+}
+.storypage__head h3 {
+  margin: 0;
+  flex: 1;
+  font-size: 22px;
+  color: var(--accent);
+}
+.storypage__body {
+  padding: 4px 24px 20px;
+}
+.scene__time {
+  font-family: var(--font-crayon);
+  font-size: 20px;
+  background: var(--butter);
+  border-radius: 999px;
+  padding: 0 10px;
+}

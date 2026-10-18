@@ -43,7 +43,7 @@ export function Ticker() {
   ));
 
   return (
-    <div className="ticker pixel" role="marquee" aria-label="Nursery market ticker, fake prices">
+    <div className="ticker crayon" role="marquee" aria-label="Nursery market ticker, fake prices">
       <div className="ticker__track" aria-hidden="true">
         <div className="ticker__group">{row}</div>
         <div className="ticker__group">{row}</div>

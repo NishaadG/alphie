@@ -2,6 +2,8 @@ import { HitCounter } from "./HitCounter";
 
 const CREDITS: Array<[string, string, string]> = [
   ["Fredoka font", "Milena Brandão, SIL Open Font License", "https://fonts.google.com/specimen/Fredoka"],
+  ["Sniglet font", "Haley Fiege, SIL Open Font License", "https://fonts.google.com/specimen/Sniglet"],
+  ["Gaegu font", "JIKJI SOFT, SIL Open Font License", "https://fonts.google.com/specimen/Gaegu"],
   ["VT323 font", "Peter Hull, SIL Open Font License", "https://fonts.google.com/specimen/VT323"],
   ["React", "MIT", "https://react.dev"],
   ["GSAP + ScrollTrigger", "GreenSock standard license (free)", "https://gsap.com"],
@@ -14,25 +16,25 @@ const CREDITS: Array<[string, string, string]> = [
 export function Footer() {
   return (
     <footer className="footer">
-      <div className="footer__construction bevel-out pixel" aria-hidden="true">
-        🚧 UNDER CONSTRUCTION 🚧 <span>(babies are always growing)</span>
+      <div className="footer__construction puffy crayon" aria-hidden="true">
+        <b>🚧 UNDER CONSTRUCTION 🚧</b> <span>(babies are always growing)</span>
       </div>
 
       <HitCounter />
 
       <nav className="webring" aria-label="Nursery webring">
-        <span className="pixel">« prev</span>
+        <span className="crayon">« prev</span>
         <b>🍼 The Nursery Webring 🍼</b>
-        <span className="pixel">next »</span>
+        <span className="crayon">next »</span>
       </nav>
 
-      <p className="footer__badges pixel" aria-hidden="true">
+      <p className="footer__badges crayon" aria-hidden="true">
         <span className="badge">BEST VIEWED IN ANY BROWSER</span>
         <span className="badge">MADE WITH MILK</span>
         <span className="badge">σ-POWERED</span>
       </p>
 
-      <details className="credits bevel-out">
+      <details className="credits puffy">
         <summary>📜 Credits & licences</summary>
         <p>
           Alphie, her art, sounds and toys are original: the character is drawn in hand-written SVG, every sound is synthesised live

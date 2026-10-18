@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { RetroWindow } from "../components/RetroWindow";
+import { Card } from "../components/Card";
 import { blip } from "../lib/audio";
 import { BETA_QUOTE, MAX_INV, newMarket, pnl, quotes, ROUND_TICKS, step, type Fill, type MMState, type Quote } from "../lib/marketMaker";
 import { rememberEgg } from "../lib/memory";
@@ -79,8 +79,8 @@ export function OrderBookBlocks() {
   const lastRow = last && last.tick === s.tick - 1 ? last.price : null;
 
   return (
-    <RetroWindow
-      title="order_book_blocks.exe"
+    <Card
+      title="Order-Book Blocks" tint="peach"
       icon="🧱"
       status={
         <>
@@ -98,12 +98,12 @@ export function OrderBookBlocks() {
         the gap. Too small a gap and sneaky babies win; too big and nobody trades with her. Beat Beta!
       </p>
       <div className="ob">
-        <ol className="ob__ladder bevel-in" aria-label="Order book">
+        <ol className="ob__ladder well" aria-label="Order book">
           {rows.map((row) => {
             const askSide = row > s.mid;
             return (
               <li key={row} className={`ob__row ${askSide ? "ob__row--ask" : "ob__row--bid"} ${lastRow !== null && near(lastRow, row) ? "is-hit" : ""}`}>
-                <span className="ob__px pixel">{row.toFixed(2)}</span>
+                <span className="ob__px crayon">{row.toFixed(2)}</span>
                 <span className="ob__blocks">
                   {(near(a.ask, row) || near(a.bid, row)) && <span className="block block--alphie" title="Alphie's price">A</span>}
                   {(near(b.ask, row) || near(b.bid, row)) && <span className="block block--beta" title="Beta's price">β</span>}
@@ -114,16 +114,16 @@ export function OrderBookBlocks() {
         </ol>
         <div className="ob__side">
           <div className="ob__score">
-            <div className="stat bevel-in">
-              <span className="pixel">Alphie</span> <b className={alphiePnl >= 0 ? "up" : "down"}>{alphiePnl.toFixed(2)}</b>
+            <div className="stat well">
+              <span className="crayon">Alphie</span> <b className={alphiePnl >= 0 ? "up" : "down"}>{alphiePnl.toFixed(2)}</b>
             </div>
-            <div className="stat bevel-in">
-              <span className="pixel">Beta</span> <b className={betaPnl >= 0 ? "up" : "down"}>{betaPnl.toFixed(2)}</b>
+            <div className="stat well">
+              <span className="crayon">Beta</span> <b className={betaPnl >= 0 ? "up" : "down"}>{betaPnl.toFixed(2)}</b>
             </div>
           </div>
-          <p className="ob__mid pixel">Fair price: {s.mid.toFixed(2)}</p>
+          <p className="ob__mid crayon">Fair price: {s.mid.toFixed(2)}</p>
           <div className="ob__inv" aria-label={`Alphie holds ${s.alphie.inv} blocks`}>
-            <span className="pixel">Crib:</span>
+            <span className="crayon">Crib:</span>
             {s.alphie.inv === 0 ? (
               <span className="caption">empty</span>
             ) : (
@@ -149,7 +149,7 @@ export function OrderBookBlocks() {
           Lean (skew): <b>{q.skew > 0 ? "+" : ""}{q.skew.toFixed(2)}</b>
           <input type="range" min={-1} max={1} step={0.05} value={q.skew} onChange={(e) => setQ({ ...q, skew: +e.target.value })} />
         </label>
-        <button type="button" className="btn98" onClick={start} disabled={running}>
+        <button type="button" className="btn" onClick={start} disabled={running}>
           {done ? "🔁 Rematch" : running ? "Trading…" : "▶ Open the shop"}
         </button>
       </div>
@@ -158,6 +158,6 @@ export function OrderBookBlocks() {
           {alphiePnl > betaPnl ? "🏆 Alphie beat Beta!" : "🧸 Beta wins this round."} Tip: lean your prices down when your crib is full.
         </p>
       )}
-    </RetroWindow>
+    </Card>
   );
 }

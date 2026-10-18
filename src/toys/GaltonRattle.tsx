@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { RetroWindow } from "../components/RetroWindow";
+import { Card } from "../components/Card";
 import { blip } from "../lib/audio";
 import { mulberry32, randomSeed } from "../lib/rng";
 import { useApp } from "../lib/store";
@@ -136,8 +136,8 @@ export function GaltonRattle() {
   const share = stats.bounces ? stats.rights / stats.bounces : 0.5;
 
   return (
-    <RetroWindow
-      title="rattle_of_large_numbers.exe"
+    <Card
+      title="Rattle of Large Numbers" tint="mint"
       icon="🪇"
       status={
         <>
@@ -157,21 +157,21 @@ export function GaltonRattle() {
         aria-label={`Galton board. ${stats.bounces} bounces so far, ${(share * 100).toFixed(1)} percent went right.`}
       />
       <div className="controls">
-        <button type="button" className="btn98" onClick={() => shake(20)} data-sound="squeak">
+        <button type="button" className="btn" onClick={() => shake(20)} data-sound="squeak">
           🪇 Shake (20 beads)
         </button>
-        <button type="button" className="btn98" onClick={() => shake(100)} data-sound="squeak">
+        <button type="button" className="btn" onClick={() => shake(100)} data-sound="squeak">
           🪇🪇 Big shake (100)
         </button>
-        <button type="button" className="btn98" onClick={tidy}>
+        <button type="button" className="btn" onClick={tidy}>
           🧹 Tidy up
         </button>
       </div>
-      <div className="meter bevel-in" aria-hidden="true">
+      <div className="meter well" aria-hidden="true">
         <div className="meter__fill" style={{ width: `${share * 100}%` }} />
         <span className="meter__mid" />
       </div>
-      <p className="caption pixel">Law of large numbers: the more you shake, the closer that bar sits to 50%.</p>
-    </RetroWindow>
+      <p className="caption crayon">Law of large numbers: the more you shake, the closer that bar sits to 50%.</p>
+    </Card>
   );
 }

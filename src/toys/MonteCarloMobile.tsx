@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { RetroWindow } from "../components/RetroWindow";
+import { Card } from "../components/Card";
 import { gbmPaths } from "../lib/gbm";
 import { randomSeed } from "../lib/rng";
 import { useApp } from "../lib/store";
@@ -82,8 +82,8 @@ export function MonteCarloMobile() {
   );
 
   return (
-    <RetroWindow
-      title="monte_carlo_mobile.exe"
+    <Card
+      title="Monte Carlo Mobile" tint="blue"
       icon="🎠"
       status={
         <>
@@ -107,10 +107,10 @@ export function MonteCarloMobile() {
           Growth (drift μ): <b>{Math.round(mu * 100)}%</b>
           <input type="range" min={-0.3} max={0.4} step={0.01} value={mu} onChange={(e) => setMu(+e.target.value)} />
         </label>
-        <button type="button" className="btn98" onClick={() => setSeed(randomSeed())}>
+        <button type="button" className="btn" onClick={() => setSeed(randomSeed())}>
           🎲 Spin the mobile
         </button>
       </div>
-    </RetroWindow>
+    </Card>
   );
 }

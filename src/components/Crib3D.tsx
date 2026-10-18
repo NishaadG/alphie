@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "../lib/store";
-import { RetroWindow } from "./RetroWindow";
+import { Card } from "./Card";
 
 // Window shell for the 3D crib. Three.js is only downloaded when this
 // window scrolls near the viewport, so it never slows the first load.
@@ -46,13 +46,13 @@ export function Crib3D() {
   }, [market]);
 
   return (
-    <RetroWindow title="crib_3d.exe — Alphie in 3D" icon="🛏️" id="crib" status={<><span>drag to spin</span><span>{state === "ready" ? "WebGL ✓" : state}</span></>}>
+    <Card title="Alphie's 3D Crib" tint="lilac" icon="🛏️" id="crib" status={<><span>drag to spin</span><span>{state === "ready" ? "WebGL ✓" : state}</span></>}>
       <p className="caption">A low-poly Alphie in her crib, with the mobile spinning overhead. Drag (or swipe) to turn it.</p>
-      <div ref={host} className="crib3d bevel-in" role="img" aria-label="3D model of Alphie sitting in her crib">
+      <div ref={host} className="crib3d well" role="img" aria-label="3D model of Alphie sitting in her crib">
         {state !== "ready" && (
-          <p className="crib3d__msg pixel">{state === "failed" ? "Your browser can't do 3D, but Alphie still loves you." : "Loading 3D crib…"}</p>
+          <p className="crib3d__msg crayon">{state === "failed" ? "Your browser can't do 3D, but Alphie still loves you." : "Loading 3D crib…"}</p>
         )}
       </div>
-    </RetroWindow>
+    </Card>
   );
 }

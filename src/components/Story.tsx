@@ -100,9 +100,39 @@ export function Story() {
       const [{ gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
+      // The stroke is non-scaling, so dashes are measured in screen pixels
+      // while the path lives in a stretched 100x1000 viewBox. Build a table
+      // of cumulative on-screen length to map scroll progress to both.
       const len = path.getTotalLength();
-      path.style.strokeDasharray = `${len}`;
-      path.style.strokeDashoffset = `${len}`;
+      const N = 240;
+      let table: number[] = [0];
+      let screenLen = 1;
+      const measure = () => {
+        const box = path.ownerSVGElement!.getBoundingClientRect();
+        const sx = box.width / 100;
+        const sy = box.height / 1000;
+        table = [0];
+        let prev = path.getPointAtLength(0);
+        for (let i = 1; i <= N; i++) {
+          const p = path.getPointAtLength((len * i) / N);
+          table.push(table[i - 1] + Math.hypot((p.x - prev.x) * sx, (p.y - prev.y) * sy));
+          prev = p;
+        }
+        screenLen = table[N] || 1;
+        path.style.strokeDasharray = `${screenLen}`;
+      };
+      const draw = (progress: number) => {
+        const target = screenLen * progress;
+        path.style.strokeDashoffset = `${screenLen - target}`;
+        let i = 1;
+        while (i < N && table[i] < target) i++;
+        const seg = table[i] - table[i - 1] || 1;
+        const pt = path.getPointAtLength((len / N) * (i - 1 + Math.min(1, Math.max(0, (target - table[i - 1]) / seg))));
+        baby.style.left = `${pt.x}%`;
+        baby.style.top = `${pt.y / 10}%`;
+      };
+      measure();
+      draw(0);
 
       const ctx = gsap.context(() => {
         ScrollTrigger.create({
@@ -110,12 +140,10 @@ export function Story() {
           start: "top 60%",
           end: "bottom 70%",
           scrub: 0.6,
-          onUpdate: (self) => {
-            const at = len * self.progress;
-            path.style.strokeDashoffset = `${len - at}`;
-            const pt = path.getPointAtLength(at);
-            baby.style.left = `${pt.x}%`;
-            baby.style.top = `${pt.y / 10}%`;
+          onUpdate: (self) => draw(self.progress),
+          onRefresh: (self) => {
+            measure();
+            draw(self.progress);
           },
         });
         gsap.utils.toArray<HTMLElement>(".scene").forEach((el, i) => {
@@ -147,9 +175,8 @@ export function Story() {
 
   return (
     <section id="story" ref={root} className="story" aria-labelledby="story-title">
-      <h2 id="story-title" className="section-title">
-        ~*~ Alphie's Story ~*~
-        <small>Scroll down to follow her crawl.</small>
+      <h2 id="story-title" className="sr-only">
+        Alphie's story in five pages
       </h2>
       <div className="story__track">
         <svg className="story__path" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
@@ -161,15 +188,15 @@ export function Story() {
         </div>
         <ol className="story__scenes">
           {SCENES.map((s, i) => (
-            <li key={s.title} className={`scene win bevel-out ${i % 2 ? "scene--right" : ""}`}>
-              <div className="win__title">
+            <li key={s.title} className={`scene storypage ${i % 2 ? "scene--right" : ""}`}>
+              <div className="storypage__head">
                 <span aria-hidden="true">🎞️</span>
                 <h3>
-                  Scene {i + 1}: {s.title}
+                  Page {i + 1}: {s.title}
                 </h3>
-                <span className="pixel scene__time">{s.time}</span>
+                <span className="crayon scene__time">{s.time}</span>
               </div>
-              <div className="win__body scene__body">
+              <div className="storypage__body scene__body">
                 <div className="scene__art" aria-hidden="true">
                   {s.art.map((a, j) => (
                     <span key={j}>{a}</span>

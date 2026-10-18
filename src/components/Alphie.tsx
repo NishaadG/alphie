@@ -135,8 +135,8 @@ export function Alphie({ mood, size = 220, onPacifier, onBelly, className = "" }
         {/* brows react to the market */}
         {face === "worried" && (
           <g stroke="#5c4033" strokeWidth="3" strokeLinecap="round">
-            <line x1="66" y1="82" x2="86" y2="86" />
-            <line x1="134" y1="82" x2="114" y2="86" />
+            <line x1="64" y1="86" x2="84" y2="80" />
+            <line x1="136" y1="86" x2="116" y2="80" />
           </g>
         )}
         {face === "tantrum" && (
@@ -173,7 +173,7 @@ export function Alphie({ mood, size = 220, onPacifier, onBelly, className = "" }
       </g>
 
       {face === "sleep" && (
-        <text x="160" y="44" className="alphie__zzz" fontFamily="VT323, monospace" fontSize="26" fill="currentColor">
+        <text x="160" y="44" className="alphie__zzz" fontFamily="Gaegu, cursive" fontSize="26" fill="currentColor">
           z Z z
         </text>
       )}

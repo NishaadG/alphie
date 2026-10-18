@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { blip } from "../lib/audio";
 import { say } from "../lib/store";
-import { RetroWindow } from "./RetroWindow";
+import { Card } from "./Card";
 
 interface Entry {
   name: string;
@@ -88,8 +88,8 @@ export function Guestbook() {
   const shown = online ? entries : SAMPLE;
 
   return (
-    <RetroWindow
-      title="guestbook.htm — Sign my wall!"
+    <Card
+      title="Sign Alphie's Baby Book" tint="butter"
       icon="📝"
       id="guestbook"
       status={
@@ -103,7 +103,7 @@ export function Guestbook() {
         <div className="gb-form__row">
           <label>
             Your name
-            <input className="field98" value={name} maxLength={24} onChange={(e) => setName(e.target.value)} placeholder="Anonymous Baby" />
+            <input className="field" value={name} maxLength={24} onChange={(e) => setName(e.target.value)} placeholder="Anonymous Baby" />
           </label>
           <fieldset className="gb-moods">
             <legend>Sticker</legend>
@@ -119,7 +119,7 @@ export function Guestbook() {
         <label>
           Your message
           <textarea
-            className="field98"
+            className="field"
             value={message}
             maxLength={200}
             rows={3}
@@ -129,8 +129,8 @@ export function Guestbook() {
           />
         </label>
         <div className="gb-form__foot">
-          <span className="pixel">{200 - message.length} chars left</span>
-          <button type="submit" className="btn98" disabled={busy || !message.trim() || online === false} data-sound="none">
+          <span className="crayon">{200 - message.length} chars left</span>
+          <button type="submit" className="btn" disabled={busy || !message.trim() || online === false} data-sound="none">
             {busy ? "Sending…" : "✍️ Sign it"}
           </button>
         </div>
@@ -142,19 +142,19 @@ export function Guestbook() {
       </form>
       <ol className="gb-list">
         {shown.map((e, i) => (
-          <li key={`${e.at}-${i}`} className="gb-entry bevel-in">
+          <li key={`${e.at}-${i}`} className="gb-entry well">
             <span className="gb-entry__mood" aria-hidden="true">
               {e.mood}
             </span>
             <div>
               <p className="gb-entry__head">
-                <b>{e.name}</b> <span className="pixel">{ago(e.at)}</span>
+                <b>{e.name}</b> <span className="crayon">{ago(e.at)}</span>
               </p>
               <p className="gb-entry__msg">{e.message}</p>
             </div>
           </li>
         ))}
       </ol>
-    </RetroWindow>
+    </Card>
   );
 }

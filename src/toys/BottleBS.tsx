@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RetroWindow } from "../components/RetroWindow";
+import { Card } from "../components/Card";
 import { blackScholes } from "../lib/blackScholes";
 
 interface DialProps {
@@ -24,7 +24,7 @@ function Dial({ label, value, min, max, fmt }: DialProps) {
         <circle cx="30" cy="32" r="3" fill="var(--accent)" />
       </svg>
       <figcaption>
-        <span className="pixel">{label}</span> {fmt(value)}
+        <span className="crayon">{label}</span> {fmt(value)}
       </figcaption>
     </figure>
   );
@@ -44,8 +44,8 @@ export function BottleBS() {
   const milkTop = 40 + (1 - fill) * 140;
 
   return (
-    <RetroWindow
-      title="black_scholes_bottle.exe"
+    <Card
+      title="The Black-Scholes Bottle" tint="butter"
       icon="🍼"
       status={
         <>
@@ -75,7 +75,7 @@ export function BottleBS() {
           {[70, 100, 130, 160].map((y) => (
             <line key={y} x1="30" x2="42" y1={y} y2={y} stroke="var(--ink)" strokeWidth="2" />
           ))}
-          <text x="60" y="120" textAnchor="middle" fontFamily="VT323, monospace" fontSize="22" fill="var(--accent)">
+          <text x="60" y="120" textAnchor="middle" fontFamily="Gaegu, cursive" fontSize="22" fill="var(--accent)">
             {res.call.toFixed(1)}
           </text>
         </svg>
@@ -104,6 +104,6 @@ export function BottleBS() {
           <input type="range" min={1 / 12} max={2} step={1 / 12} value={t} onChange={(e) => setT(+e.target.value)} />
         </label>
       </div>
-    </RetroWindow>
+    </Card>
   );
 }

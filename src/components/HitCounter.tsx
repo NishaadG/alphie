@@ -48,8 +48,8 @@ export function HitCounter() {
 
   return (
     <div className="hitcounter" aria-live="polite">
-      <span className="hitcounter__label pixel">{live ? "You are visitor #" : "Your visits here:"}</span>
-      <span className="odometer bevel-in" role="img" aria-label={hits === null ? "Counting visitors" : `${hits} visits`}>
+      <span className="hitcounter__label crayon">{live ? "You are visitor #" : "Your visits here:"}</span>
+      <span className="odometer well" role="img" aria-label={hits === null ? "Counting visitors" : `${hits} visits`}>
         {digits.map((d, i) => (
           <span key={i} className="odometer__digit">
             <span className="odometer__col" style={{ transform: `translateY(-${Number(d) * 10}%)` }}>

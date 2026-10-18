@@ -22,14 +22,14 @@ export function ChaosLayer() {
   useEffect(() => {
     if (!chaos) return;
     blip("up");
-    say("CHAOS MODE!! Drag my windows around! WHEEE!", 3500);
+    say("TANTRUM!! WAAAH!! Everything is going EVERYWHERE!!", 3500);
   }, [chaos]);
 
   if (!chaos) return null;
   return (
     <>
       <div className="chaos-marquee" aria-hidden="true">
-        <span>★ WELCOME TO ALPHIE'S CHAOS ZONE ★ DRAG THE WINDOWS ★ BEST VIEWED AT 800x600 ★ SIGN MY GUESTBOOK ★ NO BETAS ALLOWED ★</span>
+        <span>★ ALPHIE IS HAVING A TANTRUM ★ DRAG THE CARDS AROUND ★ NAP TIME IS CANCELLED ★ SIGN MY GUESTBOOK ★ NO BETAS ALLOWED ★</span>
       </div>
       {stickers.map((st, i) => (
         <span key={i} className="chaos-sticker" style={{ left: st.left, top: st.top, animationDelay: st.delay }} aria-hidden="true">
