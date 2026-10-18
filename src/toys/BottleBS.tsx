@@ -46,7 +46,7 @@ export function BottleBS() {
   return (
     <Card
       title="The Black-Scholes Bottle" tint="butter"
-      icon="🍼"
+      icon="bottle"
       status={
         <>
           <span>Call {res.call.toFixed(2)}</span>

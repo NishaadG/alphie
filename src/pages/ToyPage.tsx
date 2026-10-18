@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import { Icon } from "../components/Icon";
 import { Link } from "../lib/router";
 import { BottleBS } from "../toys/BottleBS";
 import { FirstTrade } from "../toys/FirstTrade";
@@ -31,7 +32,7 @@ export default function ToyPage({ slug }: { slug: string }) {
   return (
     <>
       <nav className="crumbs" aria-label="Breadcrumb">
-        <Link to="/playroom">🧸 Playroom</Link> <span aria-hidden="true">›</span> <span aria-current="page">{toy.name}</span>
+        <Link to="/playroom">Playroom</Link> <span aria-hidden="true">›</span> <span aria-current="page">{toy.name}</span>
       </nav>
       <div className="toy-layout">
         <div className="toy-layout__main">
@@ -46,10 +47,10 @@ export default function ToyPage({ slug }: { slug: string }) {
       </div>
       <nav className="toy-pager" aria-label="More toys">
         <Link to={`/toys/${prev.slug}`} className="btn">
-          ◀ {prev.icon} {prev.name}
+          ◀ <Icon name={prev.icon} size={24} /> {prev.name}
         </Link>
         <Link to={`/toys/${next.slug}`} className="btn">
-          {next.icon} {next.name} ▶
+          <Icon name={next.icon} size={24} /> {next.name} ▶
         </Link>
       </nav>
     </>

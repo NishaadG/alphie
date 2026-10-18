@@ -3,6 +3,7 @@ import { blip } from "../lib/audio";
 import { onKonami, onWord } from "../lib/eggs";
 import { rememberEgg } from "../lib/memory";
 import { flashMood, say, setState, useApp } from "../lib/store";
+import { Icon } from "./Icon";
 
 async function confetti(opts: Record<string, unknown>) {
   const { default: fire } = await import("canvas-confetti");
@@ -60,7 +61,7 @@ export function EggLayer() {
     <>
       {swan && (
         <div className="swan" aria-hidden="true">
-          🦢
+          <Icon name="swan" size={110} />
         </div>
       )}
       {crash && <div className="crt" aria-hidden="true" />}

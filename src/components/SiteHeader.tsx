@@ -1,5 +1,7 @@
 import { ROOMS } from "../pages/nursery";
 import { Link, usePath } from "../lib/router";
+import { Bunting } from "./Bunting";
+import { Icon } from "./Icon";
 
 // Logo plus the alphabet-block navigation. The blocks spell A-L-P-H-I-E.
 export function SiteHeader() {
@@ -8,9 +10,10 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
+      <Bunting />
       <Link to="/" className="logo" aria-label="Alphie's Nursery, home">
-        <span className="logo__baby" aria-hidden="true">
-          👶
+        <span className="logo__baby">
+          <Icon name="baby" size={44} />
         </span>
         <span className="logo__text">
           Alphie's <b>Nursery</b>
@@ -30,9 +33,7 @@ export function SiteHeader() {
                 <span className="nav-block__letter" aria-hidden="true">
                   {r.letter}
                 </span>
-                <span className="nav-block__label">
-                  <span aria-hidden="true">{r.icon}</span> {r.label}
-                </span>
+                <span className="nav-block__label">{r.label}</span>
               </Link>
             </li>
           ))}

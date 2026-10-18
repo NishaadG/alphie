@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { blip } from "../lib/audio";
 import { babyReply } from "../lib/babyTalk";
 import { Card } from "./Card";
+import { Icon } from "./Icon";
 
 interface Msg {
   role: "user" | "assistant";
@@ -58,12 +59,12 @@ export function AskAlphie() {
   return (
     <Card
       title="Baby Monitor" tint="blue"
-      icon="💬"
+      icon="chat"
       id="chat"
       status={
         <>
           <span>{busy ? "Alphie is typing…" : "Online"}</span>
-          <span>{source === "live" ? "🧠 live brain" : source === "scripted" ? "🍼 baby brain" : ""}</span>
+          <span>{source === "live" ? "live brain" : source === "scripted" ? "baby brain" : ""}</span>
         </>
       }
     >
@@ -72,9 +73,7 @@ export function AskAlphie() {
           {msgs.map((m, i) => (
             <li key={i} className={`chat__msg chat__msg--${m.role}`}>
               {m.role === "assistant" && (
-                <span className="chat__avatar" aria-hidden="true">
-                  👶
-                </span>
+                <Icon name="baby" size={34} className="chat__avatar" />
               )}
               <p>
                 <span className="sr-only">{m.role === "assistant" ? "Alphie: " : "You: "}</span>

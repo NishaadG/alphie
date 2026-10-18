@@ -104,7 +104,7 @@ export function FirstTrade() {
   return (
     <Card
       title="Baby's First Trade" tint="pink"
-      icon="🐷"
+      icon="piggy"
       status={
         <>
           <span>{p.trades} trades</span>
@@ -123,10 +123,10 @@ export function FirstTrade() {
       </div>
       <canvas ref={ref} className="toy-canvas ft__chart" role="img" aria-label={`RATTLE price chart, now ${p.price.toFixed(2)}`} />
       <div className="stat-row ft__stats">
-        <span className="stat well">🥛 {p.cash.toFixed(0)}</span>
-        <span className="stat well">🪇 ×{p.shares}</span>
+        <span className="stat well">Milk {p.cash.toFixed(0)}</span>
+        <span className="stat well">RATTLE ×{p.shares}</span>
         <span className="stat well">You {pct(myReturn(p))}</span>
-        <span className="stat well">🧸 Beta {pct(betaReturn(p))}</span>
+        <span className="stat well">Beta {pct(betaReturn(p))}</span>
       </div>
       <div className="controls">
         <button type="button" className="btn" onClick={() => doTrade(1)} disabled={maxBuy < 1} data-sound="none">
@@ -142,10 +142,10 @@ export function FirstTrade() {
           Sell all
         </button>
         <button type="button" className="btn" onClick={reset}>
-          🐷 New piggy bank
+          New piggy bank
         </button>
       </div>
-      <p className="caption crayon">Total: {value(p).toFixed(2)} milk coins. Bull markets drift up, bear markets drift down (try the ☀️ / 🌙 button!).</p>
+      <p className="caption crayon">Total: {value(p).toFixed(2)} milk coins. Bull markets drift up, bear markets drift down (try the Playtime / Bedtime button!).</p>
     </Card>
   );
 }

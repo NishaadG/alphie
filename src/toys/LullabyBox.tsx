@@ -46,7 +46,7 @@ export function LullabyBox() {
   return (
     <Card
       title="Random-Walk Lullaby Box" tint="lilac"
-      icon="🎶"
+      icon="music"
       status={
         <>
           <span>{playing ? "♪ playing" : "■ stopped"}</span>
@@ -69,13 +69,13 @@ export function LullabyBox() {
       </div>
       <div className="controls">
         <button type="button" className="btn" onClick={toggle} aria-pressed={playing} data-sound="none">
-          {playing ? "⏹ Stop" : "▶ Wind it up"}
+          {playing ? "■ Stop" : "▶ Wind it up"}
         </button>
         <button type="button" className="btn" onClick={() => setSeed(randomSeed() % 10000)}>
-          🎲 New crawl, new song
+          New crawl, new song
         </button>
       </div>
-      {muted && <p className="caption">🔇 Sound is muted. Winding it up turns sound back on.</p>}
+      {muted && <p className="caption">Sound is muted. Winding it up turns sound back on.</p>}
     </Card>
   );
 }

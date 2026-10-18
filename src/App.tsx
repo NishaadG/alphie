@@ -4,6 +4,7 @@ import { Buddy } from "./components/Buddy";
 import { ChaosLayer } from "./components/ChaosLayer";
 import { EggLayer } from "./components/EggLayer";
 import { Footer } from "./components/Footer";
+import { HeightChart } from "./components/HeightChart";
 import { SiteHeader } from "./components/SiteHeader";
 import { SparkleTrail } from "./components/SparkleTrail";
 import { Ticker } from "./components/Ticker";
@@ -12,6 +13,7 @@ import { installClickSounds } from "./lib/clickSounds";
 import { recordVisit, type VisitMemory } from "./lib/memory";
 import { usePath } from "./lib/router";
 import { useApp } from "./lib/store";
+import { roomFor, wallpaper } from "./lib/wallpaper";
 import Home from "./pages/Home";
 
 const Playroom = lazy(() => import("./pages/Playroom"));
@@ -51,6 +53,13 @@ export default function App() {
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", market === "bull" ? "#fff8f1" : "#2a2350");
   }, [market, tantrum]);
 
+  const room = roomFor(path);
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.room = room;
+    root.style.setProperty("--paper", wallpaper(room, market === "bear"));
+  }, [room, market]);
+
   const onBooted = useCallback(() => setBooted(true), []);
 
   return (
@@ -59,19 +68,16 @@ export default function App() {
       <a className="skip" href="#main">
         Skip to content
       </a>
-      <div className="sky" aria-hidden="true">
-        <span className="cloud cloud--1" />
-        <span className="cloud cloud--2" />
-        <span className="cloud cloud--3" />
-      </div>
+      <div className="sky" aria-hidden="true" />
       <Ticker />
       <SiteHeader />
       <ChaosLayer />
       <main id="main" className="page" key={path}>
-        <Suspense fallback={<p className="loading crayon">Crawling over… 👶</p>}>
+        <Suspense fallback={<p className="loading crayon">Crawling over…</p>}>
           <Page path={path} />
         </Suspense>
       </main>
+      <HeightChart />
       <Footer />
       <ToyButtons />
       <Buddy />

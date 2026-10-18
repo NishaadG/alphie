@@ -89,7 +89,7 @@ export function Hero({ memory }: { memory: VisitMemory }) {
         </div>
         {asleep && (
           <button type="button" className="btn hero__wake" onClick={() => wake()} data-sound="none">
-            ⏰ Wake her up
+            Wake her up
           </button>
         )}
       </div>

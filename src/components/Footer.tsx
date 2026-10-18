@@ -1,4 +1,5 @@
 import { HitCounter } from "./HitCounter";
+import { Icon } from "./Icon";
 
 const CREDITS: Array<[string, string, string]> = [
   ["Fredoka font", "Milena Brandão, SIL Open Font License", "https://fonts.google.com/specimen/Fredoka"],
@@ -16,6 +17,7 @@ const CREDITS: Array<[string, string, string]> = [
 export function Footer() {
   return (
     <footer className="footer">
+      <div className="footer__rug">
       <div className="footer__construction puffy crayon" aria-hidden="true">
         <b>🚧 UNDER CONSTRUCTION 🚧</b> <span>(babies are always growing)</span>
       </div>
@@ -24,7 +26,9 @@ export function Footer() {
 
       <nav className="webring" aria-label="Nursery webring">
         <span className="crayon">« prev</span>
-        <b>🍼 The Nursery Webring 🍼</b>
+        <b>
+          <Icon name="bottle" size={26} /> The Nursery Webring <Icon name="bottle" size={26} />
+        </b>
         <span className="crayon">next »</span>
       </nav>
 
@@ -35,9 +39,9 @@ export function Footer() {
       </p>
 
       <details className="credits puffy">
-        <summary>📜 Credits & licences</summary>
+        <summary>Credits & licences</summary>
         <p>
-          Alphie, her art, sounds and toys are original: the character is drawn in hand-written SVG, every sound is synthesised live
+          Alphie, her art, icons, sounds and toys are original: the character and every sticker icon are drawn in hand-written SVG, every sound is synthesised live
           with the Web Audio API, and the 3D crib is built from primitive shapes in code. Libraries and fonts used:
         </p>
         <ul>
@@ -50,7 +54,7 @@ export function Footer() {
             </li>
           ))}
         </ul>
-        <p>Emoji are rendered by your device's own emoji font.</p>
+        <p>The few emoji left (guestbook stickers, tantrum confetti) are rendered by your device's own emoji font.</p>
       </details>
 
       <p className="footer__disclaimer">
@@ -59,6 +63,7 @@ export function Footer() {
       <p className="footer__secret caption">
         Psst… some things here react to <kbd>↑↑↓↓←→←→BA</kbd>. And Alphie's favourite word is a secret.
       </p>
+      </div>
     </footer>
   );
 }

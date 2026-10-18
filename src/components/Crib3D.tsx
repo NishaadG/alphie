@@ -46,7 +46,7 @@ export function Crib3D() {
   }, [market]);
 
   return (
-    <Card title="Alphie's 3D Crib" tint="lilac" icon="🛏️" id="crib" status={<><span>drag to spin</span><span>{state === "ready" ? "WebGL ✓" : state}</span></>}>
+    <Card title="Alphie's 3D Crib" tint="lilac" icon="crib" id="crib" status={<><span>drag to spin</span><span>{state === "ready" ? "WebGL ✓" : state}</span></>}>
       <p className="caption">A low-poly Alphie in her crib, with the mobile spinning overhead. Drag (or swipe) to turn it.</p>
       <div ref={host} className="crib3d well" role="img" aria-label="3D model of Alphie sitting in her crib">
         {state !== "ready" && (

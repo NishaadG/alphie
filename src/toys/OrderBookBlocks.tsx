@@ -13,7 +13,7 @@ const TICK_MS = 550;
 function fillText(f: Fill): string {
   const who = f.who === "alphie" ? "Alphie" : "Beta";
   const verb = f.side === "buy" ? "bought a block from" : "sold a block to";
-  return `${f.informed ? "🕵️ A sneaky baby" : "🧒 A baby"} ${verb} ${who} at ${f.price.toFixed(2)}`;
+  return `${f.informed ? "A sneaky baby" : "A baby"} ${verb} ${who} at ${f.price.toFixed(2)}`;
 }
 
 // Market making with alphabet blocks: show a buy price and a sell price,
@@ -81,7 +81,7 @@ export function OrderBookBlocks() {
   return (
     <Card
       title="Order-Book Blocks" tint="peach"
-      icon="🧱"
+      icon="blocks"
       status={
         <>
           <span>
@@ -150,12 +150,12 @@ export function OrderBookBlocks() {
           <input type="range" min={-1} max={1} step={0.05} value={q.skew} onChange={(e) => setQ({ ...q, skew: +e.target.value })} />
         </label>
         <button type="button" className="btn" onClick={start} disabled={running}>
-          {done ? "🔁 Rematch" : running ? "Trading…" : "▶ Open the shop"}
+          {done ? "Rematch" : running ? "Trading…" : "▶ Open the shop"}
         </button>
       </div>
       {done && (
         <p className={`ob__result ${alphiePnl > betaPnl ? "up" : "down"}`} role="status">
-          {alphiePnl > betaPnl ? "🏆 Alphie beat Beta!" : "🧸 Beta wins this round."} Tip: lean your prices down when your crib is full.
+          {alphiePnl > betaPnl ? "Alphie beat Beta!" : "Beta wins this round."} Tip: lean your prices down when your crib is full.
         </p>
       )}
     </Card>

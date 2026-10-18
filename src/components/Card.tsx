@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { blip } from "../lib/audio";
+import type { IconName } from "../lib/icons";
 import { useApp } from "../lib/store";
+import { Icon } from "./Icon";
 
 export type Tint = "pink" | "blue" | "mint" | "butter" | "lilac" | "peach";
 
 interface Props {
   title: string;
-  icon?: string;
+  icon?: IconName;
   status?: ReactNode;
   tint?: Tint;
   className?: string;
@@ -14,9 +16,9 @@ interface Props {
   children: ReactNode;
 }
 
-// A puffy, stitched quilt card. In Tantrum Mode it tilts, scatters and can
+// A stitched baby blanket with a scalloped ribbon. In Tantrum Mode it tilts, scatters and can
 // be dragged by its ribbon (pointer events, so touch works too).
-export function Card({ title, icon = "🍼", status, tint = "pink", className = "", id, children }: Props) {
+export function Card({ title, icon = "bottle", status, tint = "pink", className = "", id, children }: Props) {
   const tantrum = useApp((s) => s.chaos);
   const [offset, setOffset] = useState({ x: 0, y: 0, r: 0 });
   const drag = useRef<{ px: number; py: number; ox: number; oy: number } | null>(null);
@@ -62,9 +64,7 @@ export function Card({ title, icon = "🍼", status, tint = "pink", className = 
         onPointerCancel={onPointerUp}
         style={tantrum ? { cursor: "grab", touchAction: "none" } : undefined}
       >
-        <span className="card__icon" aria-hidden="true">
-          {icon}
-        </span>
+        <Icon name={icon} size={34} className="card__icon" />
         <h2 id={headingId}>{title}</h2>
       </header>
       <div className="card__body">{children}</div>

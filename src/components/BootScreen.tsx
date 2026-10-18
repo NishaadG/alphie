@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { Icon } from "./Icon";
 
 const LINES = [
-  "Warming the bottle… 37°C 🍼",
+  "Warming the bottle… 37°C",
   "Finding the σ pacifier… found!",
   "Counting toes… 10 ✓",
   "Winding up the crib mobile…",
-  "Waking Alphie up… 👶",
+  "Waking Alphie up…",
 ];
 
 // A soft "waking up" screen with a duck progress bar. Skippable with any key
@@ -41,16 +42,16 @@ export function BootScreen({ onDone, fast }: { onDone: () => void; fast: boolean
     <div className="boot" role="status" aria-live="polite">
       <div className="boot__inner">
         <div className="boot__mobile" aria-hidden="true">
-          <span>⭐</span>
-          <span>🌙</span>
-          <span>☁️</span>
-          <span>🦆</span>
+          <Icon name="star" size={44} />
+          <Icon name="moon" size={44} />
+          <Icon name="cloud" size={44} />
+          <Icon name="duck" size={44} />
         </div>
         <p className="boot__title">Alphie's Nursery</p>
         <p className="boot__line crayon">{LINES[Math.min(shown, LINES.length) - 1]}</p>
         <div className="boot__bar" aria-hidden="true">
           <div className="boot__fill" style={{ width: `${progress * 100}%` }}>
-            <span className="boot__duck">🐥</span>
+            <Icon name="duck" size={34} className="boot__duck" />
           </div>
         </div>
         <p className="boot__hint">tap anywhere to skip</p>

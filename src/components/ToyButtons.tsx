@@ -1,5 +1,6 @@
 import { applyMute } from "../lib/audio";
 import { setState, useApp } from "../lib/store";
+import { Icon } from "./Icon";
 
 // The three always-visible controls, as big round toy buttons:
 // day/night (bull/bear market), Tantrum Mode, and the mute switch.
@@ -23,14 +24,14 @@ export function ToyButtons() {
         data-sound={market === "bull" ? "down" : "up"}
         title={market === "bull" ? "Playtime (bull market). Click for bedtime." : "Bedtime (bear market). Click for playtime."}
       >
-        <span className="toy-btn__icon" aria-hidden="true">
-          {market === "bull" ? "☀️" : "🌙"}
+        <span className="toy-btn__icon">
+          <Icon name={market === "bull" ? "sun" : "moon"} size={30} />
         </span>
         <span className="toy-btn__label">{market === "bull" ? "Playtime" : "Bedtime"}</span>
       </button>
       <button type="button" className="toy-btn toy-btn--tantrum" aria-pressed={tantrum} onClick={() => setState({ chaos: !tantrum })} title="Tantrum Mode">
-        <span className="toy-btn__icon" aria-hidden="true">
-          {tantrum ? "😭" : "😤"}
+        <span className="toy-btn__icon">
+          <Icon name="tantrum" size={30} />
         </span>
         <span className="toy-btn__label">Tantrum</span>
       </button>
@@ -42,8 +43,8 @@ export function ToyButtons() {
         onClick={toggleMute}
         data-sound="none"
       >
-        <span className="toy-btn__icon" aria-hidden="true">
-          {muted ? "🔇" : "🔊"}
+        <span className="toy-btn__icon">
+          <Icon name={muted ? "speakerOff" : "speaker"} size={30} />
         </span>
         <span className="toy-btn__label">{muted ? "Muted" : "Sound"}</span>
       </button>

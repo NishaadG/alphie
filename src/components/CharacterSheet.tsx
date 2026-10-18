@@ -1,3 +1,5 @@
+import { Icon } from "./Icon";
+
 // The character sheet, as a page from a baby book: printed prompts with
 // the answers "handwritten" in crayon.
 const SHEET: Array<[string, string]> = [
@@ -11,7 +13,7 @@ const SHEET: Array<[string, string]> = [
 const FIRSTS: Array<[string, string]> = [
   ["First crawl", "a random walk"],
   ["First tooth", "day 182 (a bull run)"],
-  ["First word", "it's a secret… type it 🤫"],
+  ["First word", "it's a secret… type it"],
   ["Favourite toy", "the Black-Scholes bottle"],
 ];
 
@@ -20,7 +22,7 @@ export function CharacterSheet() {
     <section className="babybook" aria-labelledby="babybook-title">
       <div className="babybook__page">
         <h2 id="babybook-title" className="babybook__title">
-          All About Me <span aria-hidden="true">🎀</span>
+          All About Me <Icon name="bow" size={40} className="babybook__bow" />
         </h2>
         <dl className="babybook__list">
           {SHEET.map(([k, v]) => (
@@ -41,13 +43,22 @@ export function CharacterSheet() {
           ))}
         </ul>
         <div className="babybook__stats" aria-label="Alphie's measurements">
-          <span className="sticker">📏 74 cm</span>
-          <span className="sticker">⚖️ 9.2 kg</span>
-          <span className="sticker">🦷 4 teeth</span>
-          <span className="sticker">😴 14h naps</span>
+          <span className="sticker">
+            <Icon name="ruler" size={24} /> 74 cm
+          </span>
+          <span className="sticker">
+            <Icon name="scale" size={24} /> 9.2 kg
+          </span>
+          <span className="sticker">
+            <Icon name="tooth" size={24} /> 4 teeth
+          </span>
+          <span className="sticker">
+            <Icon name="moon" size={24} /> 14h naps
+          </span>
         </div>
         <div className="babybook__footprint" aria-hidden="true">
-          👣 <span className="crayon">my footprint (σ = cute)</span>
+          <Icon name="foot" size={44} />
+          <Icon name="foot" size={44} className="babybook__foot2" /> <span className="crayon">my footprints (σ = cute)</span>
         </div>
       </div>
     </section>

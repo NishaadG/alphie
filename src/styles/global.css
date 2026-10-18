@@ -13,7 +13,11 @@
   --down: #c93d55;
 
   --bg: var(--cream);
-  --dot: #ffe3ec;
+  --icon-ink: var(--cocoa);
+  /* nursery wallpaper: two pattern layers per room, under the icon print */
+  --wall-a: repeating-linear-gradient(90deg, transparent 0 36px, rgba(255, 196, 214, 0.32) 36px 72px);
+  --wall-b: none;
+  --wall-size: auto;
   --ink: var(--cocoa);
   --ink-soft: #8a6a5b;
   --accent: var(--berry);
@@ -53,7 +57,7 @@
   --down: #ff8fa3;
 
   --bg: #231d45;
-  --dot: #352d63;
+  --icon-ink: #f6eaff;
   --ink: #f6eaff;
   --ink-soft: #c3b4e0;
   --accent: #ff9cc0;
@@ -65,6 +69,40 @@
   --on-accent: #231d45;
   --title-b: #b48cff;
   color-scheme: dark;
+}
+
+/* Each room has its own wallpaper: stripes or gingham in its colour. */
+:root[data-room="play"] {
+  --bg: #f4f9ff;
+  --wall-a: linear-gradient(90deg, rgba(150, 196, 255, 0.24) 50%, transparent 0);
+  --wall-b: linear-gradient(rgba(150, 196, 255, 0.24) 50%, transparent 0);
+  --wall-size: 44px 44px;
+}
+:root[data-room="story"] {
+  --bg: #fffbea;
+  --wall-a: repeating-linear-gradient(90deg, transparent 0 30px, rgba(255, 214, 102, 0.3) 30px 36px);
+}
+:root[data-room="nap"] {
+  --bg: #f8f3ff;
+  --wall-a: repeating-linear-gradient(90deg, transparent 0 36px, rgba(198, 172, 255, 0.24) 36px 72px);
+}
+:root[data-room="monitor"] {
+  --bg: #f2fcf6;
+  --wall-a: linear-gradient(90deg, rgba(140, 220, 180, 0.22) 50%, transparent 0);
+  --wall-b: linear-gradient(rgba(140, 220, 180, 0.22) 50%, transparent 0);
+  --wall-size: 36px 36px;
+}
+:root[data-room="guest"] {
+  --bg: #fff6f0;
+  --wall-a: repeating-linear-gradient(90deg, transparent 0 22px, rgba(255, 190, 160, 0.3) 22px 26px, transparent 26px 48px);
+  --wall-b: repeating-linear-gradient(0deg, transparent 0 22px, rgba(255, 190, 160, 0.3) 22px 26px, transparent 26px 48px);
+}
+/* At bedtime every room is a starry night nursery. */
+:root[data-market="bear"][data-room] {
+  --bg: #231d45;
+  --wall-a: repeating-linear-gradient(90deg, transparent 0 36px, rgba(255, 255, 255, 0.025) 36px 72px);
+  --wall-b: none;
+  --wall-size: auto;
 }
 
 *,
@@ -81,8 +119,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--bg);
-  background-image: radial-gradient(var(--dot) 3px, transparent 3.5px);
-  background-size: 28px 28px;
+  background-image: var(--paper, none), var(--wall-a), var(--wall-b);
+  background-size: 240px 240px, var(--wall-size), var(--wall-size);
   color: var(--ink);
   font-family: var(--font-round);
   font-size: 17px;
@@ -125,6 +163,13 @@ a {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.icon {
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+  overflow: visible;
 }
 
 .crayon {
@@ -197,7 +242,9 @@ input[type="range"] {
   width: 100%;
 }
 
-/* ---------- Quilt card ---------- */
+/* ---------- Baby-blanket card ---------- */
+/* A satin binding in the card's colour, a running stitch just inside it,
+   and a scalloped ribbon on top. */
 .card {
   --tint: var(--pink);
   position: relative;
@@ -207,15 +254,15 @@ input[type="range"] {
   background: var(--card);
   border: 3px solid var(--ink);
   border-radius: var(--radius);
-  box-shadow: 0 7px 0 var(--shadow);
+  box-shadow: 0 7px 0 var(--shadow), inset 0 0 0 8px var(--tint);
   transition: box-shadow 0.2s;
 }
 .card::after {
   content: "";
   position: absolute;
-  inset: 6px;
+  inset: 11px;
   border: 2px dashed var(--stitch);
-  border-radius: calc(var(--radius) - 6px);
+  border-radius: calc(var(--radius) - 10px);
   pointer-events: none;
 }
 .card--pink {
@@ -237,14 +284,25 @@ input[type="range"] {
   --tint: var(--peach);
 }
 .card__ribbon {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 18px 10px;
+  padding: 12px 18px 8px;
   background: var(--tint);
-  border-bottom: 3px solid var(--ink);
   border-radius: calc(var(--radius) - 3px) calc(var(--radius) - 3px) 0 0;
   user-select: none;
+}
+.card__ribbon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 11px;
+  background: radial-gradient(circle at 50% 0, var(--tint) 0 7.5px, var(--ink) 8px 10px, transparent 10.5px) center top / 20px 11px repeat-x;
+  pointer-events: none;
 }
 .card__ribbon h2 {
   margin: 0;
@@ -252,12 +310,11 @@ input[type="range"] {
   min-width: 0;
 }
 .card__icon {
-  font-size: 28px;
-  line-height: 1;
+  flex: none;
   filter: drop-shadow(1px 2px 0 var(--shadow));
 }
 .card__body {
-  padding: 16px 20px 18px;
+  padding: 26px 22px 20px;
   flex: 1;
   min-width: 0;
 }

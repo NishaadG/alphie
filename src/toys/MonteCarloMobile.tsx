@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Card } from "../components/Card";
+import { Icon } from "../components/Icon";
 import { gbmPaths } from "../lib/gbm";
+import { iconImage, type IconName } from "../lib/icons";
 import { randomSeed } from "../lib/rng";
 import { useApp } from "../lib/store";
 import { cssVar, useCanvas } from "../lib/useCanvas";
 
-const TOYS = ["⭐", "🌙", "🧸", "🦆", "🎈", "🍼", "🐣", "🪀", "☁️", "🦒"];
+const TOYS: IconName[] = ["star", "moon", "teddy", "duck", "heart", "bottle", "cloud", "sparkle", "rattle", "bow"];
 const COUNT = 10;
 const STEPS = 60;
 
@@ -39,7 +41,7 @@ export function MonteCarloMobile() {
     return () => cancelAnimationFrame(raf);
   }, [seed]);
 
-  const { ref } = useCanvas(
+  const { ref, redraw } = useCanvas(
     (ctx, w, h) => {
       const ink = cssVar("--ink");
       const barY = 18;
@@ -73,9 +75,8 @@ export function MonteCarloMobile() {
         ctx.strokeStyle = up ? cssVar("--up") : cssVar("--down");
         ctx.lineWidth = 2;
         ctx.stroke();
-        ctx.font = "22px serif";
-        ctx.textAlign = "center";
-        ctx.fillText(TOYS[i % TOYS.length], lx, ly + 24);
+        const toy = iconImage(TOYS[i % TOYS.length], () => redraw());
+        if (toy.complete) ctx.drawImage(toy, lx - 14, ly + 2, 28, 28);
       });
     },
     [paths, progress, market],
@@ -84,7 +85,7 @@ export function MonteCarloMobile() {
   return (
     <Card
       title="Monte Carlo Mobile" tint="blue"
-      icon="🎠"
+      icon="mobile"
       status={
         <>
           <span>Avg toy price: {mean.toFixed(1)}</span>
@@ -108,7 +109,7 @@ export function MonteCarloMobile() {
           <input type="range" min={-0.3} max={0.4} step={0.01} value={mu} onChange={(e) => setMu(+e.target.value)} />
         </label>
         <button type="button" className="btn" onClick={() => setSeed(randomSeed())}>
-          🎲 Spin the mobile
+          <Icon name="dice" size={22} /> Spin the mobile
         </button>
       </div>
     </Card>

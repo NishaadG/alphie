@@ -35,7 +35,7 @@ export function Alphie({ mood, size = 220, onPacifier, onBelly, className = "" }
         if (!svg) return;
         const r = svg.getBoundingClientRect();
         const cx = r.left + (r.width * 100) / 200;
-        const cy = r.top + (r.height * 104) / 240;
+        const cy = r.top + (r.height * 104) / 250;
         const dx = e.clientX - cx;
         const dy = e.clientY - cy;
         const dist = Math.hypot(dx, dy) || 1;
@@ -77,16 +77,29 @@ export function Alphie({ mood, size = 220, onPacifier, onBelly, className = "" }
   return (
     <svg
       ref={svgRef}
-      viewBox="0 0 200 240"
+      viewBox="0 0 200 250"
       width={size}
-      height={(size * 240) / 200}
+      height={(size * 250) / 200}
       role="img"
       aria-label={label}
       className={`alphie alphie--${face} ${className}`}
     >
+      {/* little feet, poking out under the onesie */}
+      <g fill="#ffd9c2" stroke="#5c4033" strokeWidth="4">
+        <ellipse cx="74" cy="236" rx="17" ry="10" />
+        <ellipse cx="126" cy="236" rx="17" ry="10" />
+      </g>
+      <g fill="#ffb3c6" stroke="none">
+        <circle cx="62" cy="231" r="2.6" />
+        <circle cx="68" cy="228.5" r="2.4" />
+        <circle cx="138" cy="231" r="2.6" />
+        <circle cx="132" cy="228.5" r="2.4" />
+      </g>
       {/* body / onesie with a tiny candlestick print */}
       <g className="alphie__body" onClick={onBelly}>
-        <path d="M48 178 Q50 150 100 148 Q150 150 152 178 L158 232 Q100 244 42 232 Z" fill="#cfe6ff" stroke="#5c4033" strokeWidth="4" />
+        <path d="M48 178 Q50 150 100 148 Q150 150 152 178 L158 226 Q100 238 42 226 Z" fill="#cfe6ff" stroke="#5c4033" strokeWidth="4" />
+        {/* scalloped bib collar */}
+        <path d="M70 156 Q76 170 86 162 Q93 174 100 164 Q107 174 114 162 Q124 170 130 156" fill="#fffdfa" stroke="#5c4033" strokeWidth="3" strokeLinejoin="round" />
         <g stroke="#5c4033" strokeWidth="2">
           <line x1="78" y1="182" x2="78" y2="212" />
           <rect x="74" y="188" width="8" height="14" fill="#2f9e6b" />
@@ -109,8 +122,15 @@ export function Alphie({ mood, size = 220, onPacifier, onBelly, className = "" }
         <circle cx="100" cy="100" r="68" fill="#ffd9c2" stroke="#5c4033" strokeWidth="4" />
         {/* the single hair curl, shaped like an up-tick */}
         <path d="M92 34 Q96 14 112 20 Q122 26 110 34" fill="none" stroke="#5c4033" strokeWidth="4" strokeLinecap="round" />
-        <circle cx="62" cy="128" r="10" fill="#ffb3c6" opacity="0.7" />
-        <circle cx="138" cy="128" r="10" fill="#ffb3c6" opacity="0.7" />
+        {/* a big pink bow */}
+        <g transform="translate(62 46) rotate(-18)" stroke="#5c4033" strokeWidth="3.5" strokeLinejoin="round">
+          <path d="M0 0 Q-20 -18 -26 -6 Q-28 8 -16 12 Q-6 12 0 0 Z" fill="#ff9fbd" />
+          <path d="M0 0 Q20 -18 26 -6 Q28 8 16 12 Q6 12 0 0 Z" fill="#ff9fbd" />
+          <circle cx="0" cy="0" r="6.5" fill="#ffc6d9" />
+        </g>
+        <ellipse cx="60" cy="128" rx="13" ry="10" fill="#ffb3c6" opacity="0.8" />
+        <ellipse cx="140" cy="128" rx="13" ry="10" fill="#ffb3c6" opacity="0.8" />
+        <path d="M54 124 l3 -2 M60 122 l3 -2 M140 122 l3 -2 M146 124 l3 -2" stroke="#fff" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
 
         {/* eyes */}
         {[EYE_L, EYE_R].map((e, i) =>

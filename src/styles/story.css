@@ -33,7 +33,6 @@
   position: absolute;
   left: 50%;
   top: 0;
-  font-size: 34px;
   transform: translate(-50%, -50%);
   z-index: 2;
   filter: drop-shadow(2px 2px 0 var(--shadow));
@@ -73,9 +72,11 @@
 }
 .scene__art {
   display: flex;
-  gap: 8px;
-  font-size: clamp(40px, 9vw, 56px);
+  gap: 6px;
   line-height: 1;
+}
+.scene__art span:nth-child(2) {
+  transform: translateY(-6px) rotate(6deg);
 }
 .scene__art span {
   display: inline-block;

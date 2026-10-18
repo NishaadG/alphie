@@ -1,26 +1,28 @@
+import type { IconName } from "../lib/icons";
+
 // The nursery's rooms (pages) and the toys on the playroom shelf.
 export interface Room {
   path: string;
   label: string;
   letter: string; // shown on the alphabet block in the nav
-  icon: string;
+  icon: IconName;
   color: string;
   blurb: string;
 }
 
 export const ROOMS: Room[] = [
-  { path: "/", label: "Home", letter: "A", icon: "🏠", color: "var(--pink)", blurb: "Meet Alphie" },
-  { path: "/playroom", label: "Playroom", letter: "L", icon: "🧸", color: "var(--blue)", blurb: "Six toys that are secretly maths" },
-  { path: "/storybook", label: "Storybook", letter: "P", icon: "📖", color: "var(--mint)", blurb: "How Alphie came to be" },
-  { path: "/nap-room", label: "Nap Room", letter: "H", icon: "🌙", color: "var(--lilac)", blurb: "3D crib and her lullaby" },
-  { path: "/monitor", label: "Baby Monitor", letter: "I", icon: "📻", color: "var(--butter)", blurb: "Talk to Alphie" },
-  { path: "/guestbook", label: "Guestbook", letter: "E", icon: "📝", color: "var(--peach)", blurb: "Sign her baby book" },
+  { path: "/", label: "Home", letter: "A", icon: "home", color: "var(--pink)", blurb: "Meet Alphie" },
+  { path: "/playroom", label: "Playroom", letter: "L", icon: "teddy", color: "var(--blue)", blurb: "Six toys that are secretly maths" },
+  { path: "/storybook", label: "Storybook", letter: "P", icon: "book", color: "var(--mint)", blurb: "How Alphie came to be" },
+  { path: "/nap-room", label: "Nap Room", letter: "H", icon: "moon", color: "var(--lilac)", blurb: "3D crib and her lullaby" },
+  { path: "/monitor", label: "Baby Monitor", letter: "I", icon: "monitor", color: "var(--butter)", blurb: "Talk to Alphie" },
+  { path: "/guestbook", label: "Guestbook", letter: "E", icon: "pencil", color: "var(--peach)", blurb: "Sign her baby book" },
 ];
 
 export interface ToyInfo {
   slug: string;
   name: string;
-  icon: string;
+  icon: IconName;
   tint: "pink" | "blue" | "mint" | "butter" | "lilac" | "peach";
   oneLiner: string;
   idea: string; // the grown-up idea behind the toy
@@ -31,7 +33,7 @@ export const TOYS: ToyInfo[] = [
   {
     slug: "mobile",
     name: "Monte Carlo Mobile",
-    icon: "🎠",
+    icon: "mobile",
     tint: "blue",
     oneLiner: "A crib mobile where every string is a possible future.",
     idea: "Monte Carlo simulation: run lots of random futures and look at all of them together.",
@@ -40,7 +42,7 @@ export const TOYS: ToyInfo[] = [
   {
     slug: "bottle",
     name: "The Black-Scholes Bottle",
-    icon: "🍼",
+    icon: "bottle",
     tint: "butter",
     oneLiner: "The milk shows what a promise is worth.",
     idea: "Option pricing: the Black-Scholes formula gives a fair price for the right to buy later.",
@@ -49,7 +51,7 @@ export const TOYS: ToyInfo[] = [
   {
     slug: "rattle",
     name: "Rattle of Large Numbers",
-    icon: "🪇",
+    icon: "rattle",
     tint: "mint",
     oneLiner: "Shake it: random beads always make a bell.",
     idea: "The law of large numbers and the central limit theorem, as a Galton board.",
@@ -58,7 +60,7 @@ export const TOYS: ToyInfo[] = [
   {
     slug: "lullaby",
     name: "Random-Walk Lullaby Box",
-    icon: "🎶",
+    icon: "music",
     tint: "lilac",
     oneLiner: "Alphie's wobbly crawl, played as a music box.",
     idea: "A random walk: every step goes up or down by chance.",
@@ -67,7 +69,7 @@ export const TOYS: ToyInfo[] = [
   {
     slug: "blocks",
     name: "Order-Book Blocks",
-    icon: "🧱",
+    icon: "blocks",
     tint: "peach",
     oneLiner: "Run a toy shop and out-trade Beta the teddy.",
     idea: "Market making: quote a buy and a sell price, earn the gap, watch out for sneaky traders.",
@@ -76,7 +78,7 @@ export const TOYS: ToyInfo[] = [
   {
     slug: "first-trade",
     name: "Baby's First Trade",
-    icon: "🐷",
+    icon: "piggy",
     tint: "pink",
     oneLiner: "Fake milk money, one wobbly stock, one smug teddy.",
     idea: "Alpha: how much better you did than just buying and holding.",

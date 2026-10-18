@@ -138,7 +138,7 @@ export function GaltonRattle() {
   return (
     <Card
       title="Rattle of Large Numbers" tint="mint"
-      icon="🪇"
+      icon="rattle"
       status={
         <>
           <span>Bounces: {stats.bounces}</span>
@@ -158,13 +158,13 @@ export function GaltonRattle() {
       />
       <div className="controls">
         <button type="button" className="btn" onClick={() => shake(20)} data-sound="squeak">
-          🪇 Shake (20 beads)
+          Shake (20 beads)
         </button>
         <button type="button" className="btn" onClick={() => shake(100)} data-sound="squeak">
-          🪇🪇 Big shake (100)
+          Big shake (100)
         </button>
         <button type="button" className="btn" onClick={tidy}>
-          🧹 Tidy up
+          Tidy up
         </button>
       </div>
       <div className="meter well" aria-hidden="true">

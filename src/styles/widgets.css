@@ -37,8 +37,7 @@
   color: var(--title-ink);
 }
 .chat__avatar {
-  font-size: 26px;
-  line-height: 1;
+  flex: none;
 }
 .chat__typing p {
   animation: blink 1s steps(2) infinite;
@@ -349,13 +348,65 @@ html.chaos .btn98:nth-child(2n) {
   }
 }
 
-/* Footer sits outside the page column, so give it the same width. */
+/* The footer is the nursery floor: a skirting board, wooden floorboards,
+   and a striped rag rug that holds everything. */
 .footer {
+  --floor: #e9c49b;
+  --plank: rgba(92, 64, 51, 0.16);
   position: relative;
   z-index: 1;
-  width: min(1180px, 100%);
+  display: block;
+  margin-top: 30px;
+  padding: 58px 16px 34px;
+  background-color: var(--floor);
+  background-image: repeating-linear-gradient(0deg, var(--plank) 0 2px, transparent 2px 48px),
+    repeating-linear-gradient(90deg, transparent 0 230px, var(--plank) 230px 232px);
+  border-top: 3px solid var(--ink);
+}
+:root[data-market="bear"] .footer {
+  --floor: #3a2f5c;
+  --plank: rgba(0, 0, 0, 0.25);
+}
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 24px;
+  background: var(--card);
+  border-bottom: 3px solid var(--ink);
+  box-shadow: inset 0 -6px 0 var(--line);
+}
+.footer__rug {
+  position: relative;
+  width: min(940px, 100%);
   margin: 0 auto;
-  padding: 24px 16px 30px;
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+  text-align: center;
+  padding: 44px 34px 34px;
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: 56px;
+  box-shadow: inset 0 0 0 9px var(--pink), inset 0 0 0 18px var(--butter), inset 0 0 0 27px var(--mint), 0 8px 0 var(--shadow);
+}
+.footer__rug::after {
+  content: "";
+  position: absolute;
+  inset: 32px;
+  border: 2px dashed var(--stitch);
+  border-radius: 30px;
+  pointer-events: none;
+}
+.footer__rug > * {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 560px) {
+  .footer__rug {
+    padding: 38px 24px 30px;
+    border-radius: 40px;
+  }
 }
 .footer__construction {
   border: 3px solid var(--ink);

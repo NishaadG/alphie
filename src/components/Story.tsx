@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useRef } from "react";
+import type { IconName } from "../lib/icons";
 import { mulberry32 } from "../lib/rng";
+import { Icon } from "./Icon";
 
 interface Scene {
   time: string;
   title: string;
-  art: string[];
+  art: IconName[];
   text: string;
   chart?: "up" | "down" | "frontier" | "walk" | "flat";
 }
@@ -13,35 +15,35 @@ const SCENES: Scene[] = [
   {
     time: "09:15:00",
     title: "The Opening Bell",
-    art: ["🔔", "👶", "📈"],
+    art: ["bell", "baby", "sun"],
     chart: "up",
     text: "Alphie was born the very second the market opened. The bell rang, she yelled, and every screen in the hospital turned green. The nurses called it a coincidence. Alphie called it her first trade.",
   },
   {
     time: "Month 7",
     title: "A Random Walk",
-    art: ["👶", "↔️", "🧸"],
+    art: ["baby", "foot", "teddy"],
     chart: "walk",
     text: "Her first crawl went left. Then right. Then under the sofa. Grown-ups placed bets on where she'd end up and every single one of them lost. That's a random walk: each step a coin flip, no one can call the next one.",
   },
   {
     time: "Month 8",
     title: "The Great Drawdown",
-    art: ["🍼", "💥", "😭"],
+    art: ["bottle", "drop", "tantrum"],
     chart: "down",
     text: "One morning she dropped her bottle. Milk portfolio: down 30%. There was a tantrum of historic volatility. Afterwards she learned the most important rule in finance: losses happen. Keep a burp cloth handy.",
   },
   {
     time: "Month 9",
     title: "Beta, the Teddy",
-    art: ["🧸", "⚖️", "🦆"],
+    art: ["teddy", "blocks", "duck"],
     chart: "flat",
     text: "Beta the teddy never tries anything. He just goes wherever the market goes. To beat him, Alphie stopped betting everything on one rattle. Blocks, ducks, socks: when one wobbles down another wobbles up. Diversification!",
   },
   {
     time: "Today",
     title: "Junior Quant",
-    art: ["👩‍🔬", "👶", "⭐"],
+    art: ["baby", "star", "heart"],
     chart: "frontier",
     text: "Now Alphie builds toys that are secretly models, and lives on the efficient frontier: the most play for the least crying. Does she beat the benchmark? Sometimes. And sometimes is enough.",
   },
@@ -58,7 +60,7 @@ function MiniChart({ kind }: { kind: NonNullable<Scene["chart"]> }) {
   return (
     <svg viewBox="0 0 80 60" className="scene__chart" aria-hidden="true">
       <path d={d} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      {kind === "frontier" && <text x="38" y="26" fontSize="12">⭐</text>}
+      {kind === "frontier" && <circle cx="76" cy="10" r="4.5" fill="var(--butter)" stroke="currentColor" strokeWidth="2" />}
     </svg>
   );
 }
@@ -184,13 +186,13 @@ export function Story() {
           <path ref={pathRef} d={d} className="story__path-fg" vectorEffect="non-scaling-stroke" />
         </svg>
         <div ref={babyRef} className="story__baby" aria-hidden="true">
-          👶
+          <Icon name="baby" size={48} />
         </div>
         <ol className="story__scenes">
           {SCENES.map((s, i) => (
             <li key={s.title} className={`scene storypage ${i % 2 ? "scene--right" : ""}`}>
               <div className="storypage__head">
-                <span aria-hidden="true">🎞️</span>
+                <Icon name="book" size={30} />
                 <h3>
                   Page {i + 1}: {s.title}
                 </h3>
@@ -199,7 +201,9 @@ export function Story() {
               <div className="storypage__body scene__body">
                 <div className="scene__art" aria-hidden="true">
                   {s.art.map((a, j) => (
-                    <span key={j}>{a}</span>
+                    <span key={j}>
+                      <Icon name={a} size={52} />
+                    </span>
                   ))}
                 </div>
                 {s.chart && <MiniChart kind={s.chart} />}

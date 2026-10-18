@@ -90,7 +90,7 @@ export function Guestbook() {
   return (
     <Card
       title="Sign Alphie's Baby Book" tint="butter"
-      icon="📝"
+      icon="pencil"
       id="guestbook"
       status={
         <>
@@ -131,7 +131,7 @@ export function Guestbook() {
         <div className="gb-form__foot">
           <span className="crayon">{200 - message.length} chars left</span>
           <button type="submit" className="btn" disabled={busy || !message.trim() || online === false} data-sound="none">
-            {busy ? "Sending…" : "✍️ Sign it"}
+            {busy ? "Sending…" : "Sign it"}
           </button>
         </div>
         {note && (

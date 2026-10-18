@@ -12,67 +12,13 @@
   left: 8px;
 }
 
-/* ---------- Sky: drifting clouds (stars at bedtime) ---------- */
+/* ---------- Night sky: twinkling stars at bedtime ---------- */
 .sky {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-}
-.cloud {
-  position: absolute;
-  width: 160px;
-  height: 52px;
-  background: #fff;
-  border-radius: 999px;
-  opacity: 0.75;
-  animation: drift 70s linear infinite;
-}
-.cloud::before,
-.cloud::after {
-  content: "";
-  position: absolute;
-  background: #fff;
-  border-radius: 50%;
-}
-.cloud::before {
-  width: 70px;
-  height: 70px;
-  top: -34px;
-  left: 24px;
-}
-.cloud::after {
-  width: 54px;
-  height: 54px;
-  top: -24px;
-  left: 78px;
-}
-.cloud--1 {
-  top: 16%;
-  left: -200px;
-}
-.cloud--2 {
-  top: 48%;
-  left: -200px;
-  animation-duration: 95s;
-  animation-delay: -40s;
-  transform: scale(0.7);
-}
-.cloud--3 {
-  top: 78%;
-  left: -200px;
-  animation-duration: 120s;
-  animation-delay: -80s;
-  transform: scale(0.85);
-}
-@keyframes drift {
-  to {
-    translate: calc(100vw + 400px) 0;
-  }
-}
-:root[data-market="bear"] .cloud {
-  opacity: 0.08;
 }
 :root[data-market="bear"] .sky {
   background-image: radial-gradient(2px 2px at 10% 20%, #fff8c4, transparent), radial-gradient(2px 2px at 30% 70%, #fff8c4, transparent),
@@ -128,13 +74,71 @@
   z-index: 30;
   width: min(1180px, 100%);
   margin: 0 auto;
-  padding: 16px 16px 8px;
+  padding: 62px 16px 8px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
 }
+/* ---------- Bunting garland ---------- */
+.bunting {
+  --sag: 26px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: 70px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: -1;
+}
+.bunting__rope {
+  position: absolute;
+  inset: 0 0 auto 0;
+  width: 100%;
+  height: var(--sag);
+  overflow: visible;
+}
+.bunting__rope path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.bunting__flag {
+  position: absolute;
+  top: calc(var(--y) * var(--sag) - 3px);
+  width: 34px;
+  height: 40px;
+  margin-left: -17px;
+  overflow: visible;
+  transform-origin: 50% 0;
+  animation: flutter 3.2s ease-in-out infinite alternate;
+  animation-delay: var(--d);
+}
+.bunting__flag path {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.bunting__flag circle {
+  fill: var(--card);
+  opacity: 0.85;
+}
+@keyframes flutter {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(4deg);
+  }
+}
+@media (max-width: 640px) {
+  .bunting__flag:nth-of-type(even) {
+    display: none;
+  }
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -145,9 +149,8 @@
 .logo__baby {
   display: grid;
   place-items: center;
-  width: 54px;
-  height: 54px;
-  font-size: 32px;
+  width: 58px;
+  height: 58px;
   background: var(--pink);
   border: 3px solid var(--ink);
   border-radius: 50%;
@@ -210,7 +213,7 @@
   text-shadow: 1px 1px 0 var(--card);
 }
 .nav-block__label {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -263,9 +266,8 @@
 .toy-btn__icon {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  font-size: 22px;
+  width: 38px;
+  height: 38px;
   background: var(--butter);
   border-radius: 50%;
 }
@@ -311,10 +313,9 @@
   display: flex;
   justify-content: center;
   gap: 18px;
-  font-size: 34px;
   animation: spin-y 4s linear infinite;
 }
-.boot__mobile span:nth-child(odd) {
+.boot__mobile .icon:nth-child(odd) {
   animation: bob 1.6s ease-in-out infinite;
 }
 .boot__title {
@@ -343,9 +344,8 @@
 }
 .boot__duck {
   position: absolute;
-  right: -4px;
-  top: -6px;
-  font-size: 24px;
+  right: -10px;
+  top: -12px;
 }
 .boot__hint {
   margin-top: 18px;
@@ -608,8 +608,10 @@
   gap: 8px;
 }
 .sticker {
-  display: inline-block;
-  padding: 3px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 12px 3px 6px;
   background: var(--butter);
   border: 2px solid var(--ink);
   border-radius: 999px;
@@ -623,7 +625,16 @@
 }
 .babybook__footprint {
   margin-top: 14px;
-  font-size: 34px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.babybook__foot2 {
+  transform: translateY(-10px) rotate(12deg) scaleX(-1);
+}
+.babybook__bow {
+  vertical-align: -6px;
+  transform: rotate(-10deg);
 }
 .babybook__footprint .crayon {
   font-size: 18px;
@@ -660,7 +671,7 @@
   transform: translateY(-4px) rotate(-1deg);
 }
 .door__icon {
-  font-size: 46px;
+  filter: drop-shadow(1px 3px 0 var(--shadow));
 }
 .door__label {
   font-family: var(--font-display);
@@ -737,8 +748,7 @@
   --t: var(--peach);
 }
 .toy-tile__icon {
-  font-size: 54px;
-  line-height: 1;
+  filter: drop-shadow(1px 3px 0 var(--shadow));
 }
 .toy-tile:hover .toy-tile__icon {
   animation: shake 0.3s linear 2;
@@ -882,6 +892,12 @@
   width: min(420px, 100%);
   stroke: var(--accent);
 }
+.lost__icons {
+  display: flex;
+  justify-content: space-between;
+  width: min(420px, 100%);
+  margin-top: -70px;
+}
 .lost h1 {
   margin: 0;
   font-size: clamp(30px, 6vw, 46px);
@@ -902,10 +918,8 @@
 .swan {
   position: fixed;
   top: 30%;
-  left: -120px;
-  font-size: 96px;
+  left: -140px;
   z-index: 70;
-  filter: grayscale(1) brightness(0.2);
   animation: swan 4s linear forwards;
   pointer-events: none;
 }
@@ -969,4 +983,74 @@ html.crash body {
   .door__label {
     font-size: 18px;
   }
+}
+
+/* ---------- Height chart (wide screens) ---------- */
+.height-chart {
+  --p: 0;
+  position: fixed;
+  left: 22px;
+  top: 20vh;
+  height: calc(80vh - 210px);
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+}
+@media (min-width: 1380px) {
+  .height-chart {
+    display: block;
+  }
+}
+.height-chart__ruler {
+  position: relative;
+  width: 34px;
+  height: 100%;
+  background: repeating-linear-gradient(0deg, var(--ink) 0 2px, transparent 2px 10%) right / 12px 100% no-repeat,
+    repeating-linear-gradient(0deg, var(--ink) 0 1.5px, transparent 1.5px 2.5%) right / 7px 100% no-repeat,
+    linear-gradient(180deg, var(--pink), var(--butter), var(--mint), var(--blue));
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 0 5px 0 var(--shadow);
+}
+.height-chart__num {
+  position: absolute;
+  left: 3px;
+  transform: translateY(50%);
+  font-size: 12px;
+  font-weight: 700;
+}
+.height-chart__mark {
+  position: absolute;
+  left: 40px;
+  transform: translateY(50%) rotate(-6deg);
+  padding: 0 8px;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font-size: 17px;
+  white-space: nowrap;
+}
+.height-chart__mark::before {
+  content: "";
+  position: absolute;
+  left: -44px;
+  top: 50%;
+  width: 44px;
+  border-top: 3px dashed var(--accent);
+}
+.height-chart__you {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--p) * 100%);
+  transform: translate(-50%, 50%);
+  transition: bottom 0.25s ease-out;
+  filter: drop-shadow(1px 2px 0 var(--shadow));
+}
+.height-chart__cap {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: -6px;
+  white-space: nowrap;
+  font-size: 17px;
+  color: var(--ink-soft);
 }

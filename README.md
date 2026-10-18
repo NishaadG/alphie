@@ -17,7 +17,8 @@ A cosy, early-web style personal website for **Alphie** (Alpha Brownian-Motion),
 ## What's inside
 
 - **Six rooms (pages)**: Home, Playroom (every toy has its own page), Storybook, Nap Room, Baby Monitor and Guestbook, linked by alphabet blocks that spell A-L-P-H-I-E.
-- **Nursery look**: pastel quilt cards, a baby-book "All About Me" page, crayon handwriting, drifting clouds by day and stars at bedtime.
+- **Nursery look**: a different wallpaper print in every room (stripes and gingham with tiny ducks, blocks, moons and hearts), bunting across the top, a height chart on the wall that you climb as you scroll, a wooden floor and rag rug at the bottom, baby-blanket cards with scalloped trim, a baby-book "All About Me" page and crayon handwriting. At bedtime every room turns into a starry night nursery.
+- **Hand-drawn icons**: every icon is an original SVG sticker in the same style as Alphie, not an emoji.
 - **Alphie herself**: hand-drawn SVG; eyes follow your cursor or finger, moods follow the market, she naps in a bear market.
 - **Toybox** (all playable, all real maths):
   - *Monte Carlo Mobile*: crib-mobile strings are simulated geometric Brownian motion paths.

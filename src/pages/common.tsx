@@ -1,4 +1,6 @@
 import { useEffect, type ReactNode } from "react";
+import { Icon } from "../components/Icon";
+import type { IconName } from "../lib/icons";
 
 export function usePageTitle(title: string): void {
   useEffect(() => {
@@ -6,12 +8,12 @@ export function usePageTitle(title: string): void {
   }, [title]);
 }
 
-export function PageTitle({ icon, title, sub }: { icon: string; title: string; sub?: ReactNode }) {
+export function PageTitle({ icon, title, sub }: { icon: IconName; title: string; sub?: ReactNode }) {
   usePageTitle(title);
   return (
     <div className="page-title">
       <h1>
-        <span aria-hidden="true">{icon}</span> {title}
+        <Icon name={icon} size={52} className="page-title__icon" /> {title}
       </h1>
       {sub && <p>{sub}</p>}
     </div>

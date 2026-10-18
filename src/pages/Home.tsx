@@ -1,6 +1,7 @@
 import { CharacterSheet } from "../components/CharacterSheet";
 import { Hero } from "../components/Hero";
 import { type VisitMemory } from "../lib/memory";
+import { Icon } from "../components/Icon";
 import { Link } from "../lib/router";
 import { usePageTitle } from "./common";
 import { ROOMS } from "./nursery";
@@ -19,9 +20,7 @@ export default function Home({ memory }: { memory: VisitMemory }) {
           {ROOMS.slice(1).map((r) => (
             <li key={r.path}>
               <Link to={r.path} className="door" style={{ "--door": r.color } as React.CSSProperties} data-sound="open">
-                <span className="door__icon" aria-hidden="true">
-                  {r.icon}
-                </span>
+                <Icon name={r.icon} size={60} className="door__icon" />
                 <span className="door__label">{r.label}</span>
                 <span className="door__blurb">{r.blurb}</span>
               </Link>
