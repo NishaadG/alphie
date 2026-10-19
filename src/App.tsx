@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { BootScreen } from "./components/BootScreen";
 import { Buddy } from "./components/Buddy";
 import { ChaosLayer } from "./components/ChaosLayer";
@@ -58,11 +58,13 @@ export default function App() {
   useCursors();
   useExplorer(path);
 
+  const startMarket = useRef(market);
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.market = market;
     root.classList.toggle("chaos", tantrum);
-    if (market === "bear") collect("bedtime");
+    if (market === "bear" && startMarket.current !== "bear") collect("bedtime");
+    if (market === "bull") startMarket.current = "bull";
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", market === "bull" ? "#fff8f1" : "#2a2350");
   }, [market, tantrum]);
 

@@ -21,7 +21,12 @@ export function useTabTricks(): void {
     const normalIcon = icon?.href ?? "/favicon.svg";
     let savedTitle = document.title;
     let restore: number | undefined;
+    let wasSeen = !document.hidden;
     const onChange = () => {
+      if (!wasSeen) {
+        wasSeen = !document.hidden;
+        return;
+      }
       if (document.hidden) {
         window.clearTimeout(restore);
         savedTitle = document.title.startsWith("Yay") ? savedTitle : document.title;

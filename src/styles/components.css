@@ -1124,6 +1124,16 @@ html.crash body {
     transform: translateX(16px) rotate(-90deg);
   }
 }
+@media (prefers-reduced-motion: reduce) {
+  .peek--left {
+    animation: none;
+    transform: translateX(-16px) rotate(90deg);
+  }
+  .peek--right {
+    animation: none;
+    transform: translateX(16px) rotate(-90deg);
+  }
+}
 .peek svg {
   display: block;
 }

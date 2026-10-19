@@ -31,7 +31,7 @@ export function NapOverlay() {
   if (!napping) return null;
   return (
     <div className="nap-overlay" aria-hidden="true">
-      <p className="nap-overlay__text crayon">shhh… Alphie is napping. Wiggle your mouse to wake her.</p>
+      <p className="nap-overlay__text crayon">shhh… Alphie is napping. Wiggle the mouse or tap to wake her.</p>
     </div>
   );
 }
