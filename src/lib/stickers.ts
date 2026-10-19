@@ -18,6 +18,7 @@ export const STICKERS: Sticker[] = [
   { id: "crawler", name: "Wheee!", icon: "foot", hint: "Someone is crawling on the floor.", how: "You tickled Alphie on the nursery floor." },
   { id: "tantrum", name: "Meltdown", icon: "tantrum", hint: "Some buttons are best left alone.", how: "You crashed the whole nursery market." },
   { id: "bedtime", name: "Night Owl", icon: "moon", hint: "Put the nursery to bed.", how: "You switched on Bedtime (a bear market)." },
+  { id: "dreams", name: "Sweet Dreams", icon: "bell", hint: "Shine a light in the Nap Room.", how: "Your nightlight found all six of Alphie's dreams." },
   { id: "nap", name: "Shhh…", icon: "cloud", hint: "Sit very, very still.", how: "Alphie dozed off while you watched." },
   { id: "comeback", name: "Come Back!", icon: "heart", hint: "Go away. Then come back.", how: "You left the tab and Alphie missed you." },
   { id: "swan", name: "Black Swan", icon: "swan", hint: "Boop something seven times.", how: "Seven pacifier boops summoned a black swan." },

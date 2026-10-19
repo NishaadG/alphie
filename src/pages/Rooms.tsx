@@ -1,6 +1,7 @@
 import { AskAlphie } from "../components/AskAlphie";
 import { Crib3D } from "../components/Crib3D";
 import { Guestbook } from "../components/Guestbook";
+import { Nightlight } from "../components/Nightlight";
 import { Story } from "../components/Story";
 import { Link } from "../lib/router";
 import { LullabyBox } from "../toys/LullabyBox";
@@ -18,11 +19,12 @@ export function StorybookPage() {
 export function NapRoomPage() {
   return (
     <>
-      <PageTitle icon="moon" title="Nap Room" sub="Shhh… Alphie's crib, in 3D. Try the Bedtime button for the starry version." />
+      <PageTitle icon="moon" title="Nap Room" sub="Shhh… Alphie's crib, in 3D. Try the Bedtime button for the starry version, then shine the nightlight on her dreams." />
       <div className="row row--two">
         <Crib3D />
         <LullabyBox />
       </div>
+      <Nightlight />
     </>
   );
 }
